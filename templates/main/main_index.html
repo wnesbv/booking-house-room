@@ -1,0 +1,67 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1 class="container display-6">search rooms</h1>
+    <div class="container">
+        <h4 class="lead my-5">search rooms: booking a day</h4>
+
+        <form class="row" method="post" action="{% url 'index' %}" id="options_form">
+            {% csrf_token %}
+
+            <div class="list-group col-sm">
+                <span class="list-group-item">
+                    {{ form.start_date|as_crispy_field }}
+                </span>
+            </div>
+            <div class="list-group col-sm">
+                <span class="list-group-item">
+                    {{ form.end_date|as_crispy_field }}
+                </span>
+            </div>
+
+            <div class="list-group col-sm">
+                <span class="list-group-item">
+                    {{ form.number_rooms|as_crispy_field }}
+                </span>
+            </div>
+            <div class="list-group col-sm">
+                <span class="list-group-item">
+                    {{ form.number_children|as_crispy_field }}
+                </span>
+            </div>
+            <div class="list-group col-sm">
+                <span class="list-group-item">
+                    {{ form.number_adults|as_crispy_field }}
+                </span>
+            </div>
+
+            <button class="m_btn my-4" type="submit">search</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block datetimepicker %}
+<link rel="stylesheet" href="{% static 'datetimepicker/dtsel.css' %}">
+<script src="{% static 'datetimepicker/dtsel.js' %}"></script>
+
+<script>
+    instance = new dtsel.DTS('input[name="start_date"]',  {
+        showTime: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "HH:MM"
+    });
+    instance = new dtsel.DTS('input[name="end_date"]',  {
+        showTime: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "HH:MM"
+    });
+</script>
+{% endblock datetimepicker %}
+

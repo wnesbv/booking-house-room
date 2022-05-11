@@ -1,0 +1,22 @@
+
+
+{% extends 'event.html' %}
+{% load crispy_forms_tags %}
+<title>{% block title %} Contact {% endblock %}</title>
+
+
+{% block content %}
+
+	<div class="container flex_horizon">
+		<h1 class="my-5">Contact</h1>
+	    <div class="h-100 p-5 bg-light border rounded-3">
+			<form role="contact_form" action="" method="post">
+			    {% csrf_token %}
+			    {{ form|crispy }}
+			    <button class= "m_btn" type="submit">Submit</button>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+

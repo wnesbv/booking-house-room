@@ -1,0 +1,103 @@
+
+
+#wrapper{
+    margin-top: -62px;
+    display: flex;
+}
+.sidebar{
+    width: 19rem !important;
+    padding-top: 80px;
+    background-color: #f2f6fa;
+}
+#content-wrapper{
+    width: 100%;
+    height: 100vh;
+    padding-top: 60px;
+    overflow-x: hidden;
+}
+.active{
+    background: white;
+}
+.active-link{
+    padding: .5rem 0;
+    display: block;
+}
+.nav-item{
+    margin: 5px 5px;
+    padding: 0 20px;
+    border-radius: 10px;
+}
+.nav-item a{
+    color: #021045;
+    text-decoration: none;
+}
+.round{
+    min-height: 250px;
+    padding: 20px;
+    border-radius: 20px;
+}
+.poster{
+    margin: 15px;
+}
+
+.bl{
+    background: black;
+}
+.right-c{
+    margin-top: 150px;
+}
+.pillow{
+    width: 60%;
+}
+.title{
+    padding: 10px 0;
+    font-size: 50px;
+}
+.rate{
+    margin: 10px 0;
+    margin-left: 30px;
+}
+.rate i{
+    color: red;
+    text-shadow: 0 0 5px white;
+}
+.desc{
+    margin: 5px 50px 5px 5px;
+}
+.btn-custom{
+    width: 230px;
+    margin: 5px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(320deg, blue, red);
+}
+.btn-custom i{
+    padding: 0 5px;
+}
+.btn-custom:hover{
+    color: #fff;
+    border: solid 2px white;
+    background: transparent;
+}
+.time{
+    display: inline;
+}
+.card{
+    margin: 100px auto;
+    border: none;
+    border-radius: 10px;
+}
+.pass-h{
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(45deg, red, #ff4343);
+}
+.info{
+    color: white;
+    font-size: 20px;
+    line-height: 40px;
+    border: solid 1px;
+    border-right: 0;
+    border-radius: 50px 0 0 50px;
+    background: #000;
+}

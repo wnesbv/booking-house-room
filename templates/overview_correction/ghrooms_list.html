@@ -1,0 +1,50 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %} rooms list {% endblock %}
+
+{% block content %}
+
+    <h1 class="container my-5">rooms list</h1>
+    <div class="container h-100 p-5 border rounded-3">
+        <div class="row">
+
+        {% for object in object_list %}
+            <div class="card col-sm" style="max-width: 25rem;">
+                <div class="card-header">
+                    <h4 class="m_btn w-100">
+                        <a href="{% url 'overview_correction:room_detail' object.slug %}">
+                            <small>{{ object.guesthouse }} | {{ object.name }} | {{ object.room_type }} | {{ object.functionality_rm }}</small>
+                        </a>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">room services: {{ object.room_services }}</li>
+                        <li class="list-group-item">
+                            {{ object.price }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+
+	    </div>
+    </div>
+
+    <ul class="mt-5 mb-5 pagination justify-content-center">
+        <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
+            <a class="page-link" href="{{ url }}?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}">previous</a>
+        </li>
+        {% for page_number in page_range %}
+        <li class="page-item{% if page_number == page_obj.number %} active{% endif %}">
+            <a class="page-link" href="{{ url }}?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% endfor %}
+        <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+            <a class="page-link" href="{{ url }}?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}">next</a>
+        </li>
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+
+{% extends "base.html" %}
+{% block title %} room {{ object.name }} {% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="pb-3">room  {{ object.name }}</h1>
+        <div class="h-100 p-5 bg-light border rounded-3 justify-content-center">
+            <div class="card col-sm">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">functional options: {{ object.functional_options }}</li>
+                        <li class="list-group-item">{{ object.inventory_offers | safe }}</li>
+                        <li class="list-group-item">{{ object.tables_editing | safe }}</li>
+                        <li class="list-group-item"><a href="{{ object.file_upload.url }}">{{ object.file_upload }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+

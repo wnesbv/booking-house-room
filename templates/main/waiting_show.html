@@ -1,0 +1,42 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- waiting_show.html -->
+    <div class="container">
+        <h2 class="heading-tertiary">Availability of Rooms</h2>
+        {% for room in rooms %}
+            <h3 class="heading-tertiary">Guest House : {{ room.gh_all.name }}</h3>
+            <table class="table">
+                <tr class="tr jumbotron">
+                    <th class="th">Rooms Types</th>
+                    <th class="th">Number of Waiting</th>
+                    <th class="th">Continue Waiting</th>
+                    <th class="th">Details</th>
+                </tr>
+
+                {% for r_m in room.room2 %}
+                    <tr class="tr jumbotron">
+                        <td class="td">{{ r_m.type }}</td>
+                        <td class="td">{{ r_m.count }}</td>
+                        </td>
+                        <td align="center">
+                            <form method="post" action="{% url 'waiting' room.gh_all.id n_n.id r_m.type %}">
+                                {% csrf_token %}
+                                <button class="button">Waiting</button>
+                            </form>
+                        </td>
+                        <td>
+                            <button class="button" onclick="location.href=">Details</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

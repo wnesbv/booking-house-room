@@ -1,0 +1,30 @@
+
+
+{% extends 'fitness/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="my-5">rest details bookings</h1>
+        <div class="h-100 p-5 border rounded-3">
+
+            <table class="table table-bordered room_details book list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">Room Type</th>
+                    <th class="th col-sm">Details</th>
+                    <th class="th col-sm">Slug</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">Room Type : {{ offers.rest_type }}</td>
+                    <td class="td col-sm">Details: {{ offers.functionality_kor }}</td>
+                    <td class="td col-sm">Slug | {{ offers.slug }}</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <button class="form-group btn btn-outline-success" onclick="location.href='/my-bookings'">My Bookings </button>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,172 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load ratings %}
+{% load overview_correction_tags %}
+{% block title %} guesthouse list {% endblock %}
+
+{% block content %}
+    <!-- gh_list -->
+    <h1 class="container display-6 my-5">GuestHouse list</h1>
+    <div class="container h-100 p-5 border rounded-3">
+
+        <div class="user_list">
+            <div class="user_list_item card me-3">
+            {% for post in object_list %}
+
+                <div class="card">
+                    <div class="card-header">
+                        <img class="w-100" src="{{ post.image.url }}" alt="Card image blog">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <h2 class="fs-5 bf_ms_first">
+                                    {{ post.name }}
+                                </h2>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="bi bi-pencil-square"></i>
+                                <sup><time>{{ post.created_at|date:"Y n j G:i:s" }}</time></sup>
+                                <i class="bi bi-clock"></i>
+                                <sup><time>{{ post.modified_at|date:"Y n j G:i:s" }}</time></sup>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        {{ post.specifications| safe | truncatewords:"20" }}
+                    </div>
+
+                    <div class="card-footer">
+                        <i class="bi bi-person-check-fill"></i>
+                        <sup class="mx-2">{{ post.author }}</sup>
+
+                        <div class="pagination">
+                            <i class="bi bi-tags"></i>
+                            {% for tag in post.tags.all %}
+                                <a class="btn btn-sm" href="{% url 'overview_correction:gh_list_by_tag' tag.slug %}">
+                                    <small>{{ tag.name }}</small>
+                                </a>
+                                {% if not forloop.last %} {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <ul class="list-group list-group-horizontal justify-content-center align-items-center my-2">
+                        {% if user.is_authenticated %}
+                            <li class="list-group-item">
+                            <span class="d-flex">
+                                {% if post.getLikedUser %}
+                                    <i data-postid="{{ post.id }}" data-userid="{{ login_user_id }}" class="i_like like-btn fas"></i>
+                                    <span class="likes-result mx-1">{{ post.getLikeCount }}</span>
+
+                                    {% else %}
+                                    <i data-postid="{{ post.id }}" data-userid="{{ login_user_id }}" class="i_like like-btn far"></i>
+                                    <span class="likes-result mx-1">{{ post.getLikeCount }}</span>
+                                {% endif %}
+
+                                {% if post.getDisLikedUser %}
+                                    <i data-postid="{{ post.id }}" data-userid="{{ login_user_id }}" class="i_like dislike-btn fas"></i>
+                                    <span class="dislikes-result mx-1">{{ post.getDislikeCount }}</span>
+
+                                    {% else %}
+                                    <i data-postid="{{ post.id }}" data-userid="{{ login_user_id }}" class="i_like dislike-btn far"></i>
+                                    <span class="dislikes-result mx-1">{{ post.getDislikeCount }}</span>
+                                {% endif %}
+
+                                {% else %}
+                                <span class="list-group list-group-flush">
+                                    <span class="d-flex list-group-item">
+                                        <a class="nav-link" href="{% url 'login' %}">
+                                            <i data-postid="{{ post.id }}" class="i_like like-btn"></i>
+                                        </a>
+                                        <span class="likes-result mx-2">{{ post.getLikeCount }}</span>
+                                        <a class="nav-link" href="{% url 'login' %}">
+                                            <i data-postid="{{ post.id }}" class="i_like dislike-btn"></i>
+                                        </a>
+                                        <span class="dislikes-result mx-2">{{ post.getDislikeCount }}</span>
+                                    </span>
+                                    <span class="list-group-item">
+                                        log in or register
+                                    </span>
+                                </span>
+
+                            </span>
+                            </li>
+
+                        {% endif %}
+                        <li class="list-group-item">
+                            {% ratings post template_name='star_ratings/widget_simplified.html' %}
+                        </li>
+                    </ul>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a class="m_btn more_details float-start" href="{{ post.get_absolute_url }}">&rarr;</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                {% empty %}
+                <p class="lead">No posts found.</p>
+            {% endfor %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                {% show_latest_posts %}
+
+                <div class="card my-4">
+                    <div class="card-header">
+                        <h2 class="lead bf_ms_first my-2"><small>total publications for today</small></h2>
+                        <div class="mt-3">
+                            <span>
+                                <i class="bi bi-pencil-square text-primary mx-2"></i>
+                                <sup class="badge bg-primary text-weiht">{% total_posts %}</sup>
+                            </span>
+                            <span>
+                                <i class="bi bi-check2-circle text-primary mx-2"></i>
+                                <sup class="badge bg-primary text-weiht">{% total_published %}</sup>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-header">
+                        <h4 class="lead my-2"><small>max comments post</small></h4>
+                    </div>
+
+                    <div class="card-body">
+                        {% max_commets_posts %}
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for post in most_commented_posts %}
+                                <li class="list-group-item">
+                                    <a class="page_link" href="{{ post.get_absolute_url }}">
+                                        {{ post.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user_list_paginated my-5">
+            {% if is_paginated %}
+                {% include 'overview_correction/partials/pagination.html' with page=page_obj %}
+            {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{# ... #}
+{% block javascript %}
+{% include "overview_correction/like_btn.html" %}
+<script src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+{% endblock javascript %}

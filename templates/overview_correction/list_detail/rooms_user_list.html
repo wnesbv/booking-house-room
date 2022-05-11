@@ -1,0 +1,122 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load overview_correction_tags %}
+{% block title %} rooms user list {% endblock %}
+
+{% block content %}
+    <!-- rooms_user_list -->
+    <h1 class="container my-5">rooms user list</h1>
+    <div class="container h-100 p-5 border rounded-3">
+        <div class="user_list">
+
+            {% for item in room_user_list %}
+            <div class="user_list_item card me-3">
+
+                <div class="card-header">
+                    <img class="w-100" src="{{ item.image.url }}" alt="Card image">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <h2 class="fs-5 bf_ms_first">
+                                <small>{{ item.name }}</small>
+                            </h2>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-pencil-square"></i>
+                            <sup><time>{{ item.created_at|date:"Y n j G:i:s" }}</time></sup>
+                            <i class="bi bi-clock"></i>
+                            <sup><time>{{ item.modified_at|date:"Y n j G:i:s" }}</time></sup>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    {{ item.room_specifications }}
+                </div>
+
+                <div class="card-footer">
+                    <i class="bi bi-person-check-fill"></i>
+                    <sup class="mx-2">{{ item.author }}</sup>
+
+                    <div class="pagination">
+                        {% for tag in item.tags.all %}
+                            <a class="btn btn-sm m-2" href="{% url 'overview_correction:gh_list_by_tag' tag.slug %}">
+                                <i class="bi bi-tags me-1"></i>
+                                <small>{{ tag.name }}</small>
+                            </a>
+                            {% if not forloop.last %} {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="pagination">
+                        {% if item.author == user %}
+                            <a class="btn btn-primary btn-sm me-2" href="{% url 'overview_correction:room_update' item.slug %}">update</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'overview_correction:room_delete' item.slug %}">delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                     <li class="list-group-item">
+                        <a class="m_btn more_details" href="{% url 'overview_correction:room_user_detail' item.slug %}">&rarr;</a>
+                    </li>
+                </ul>
+
+            </div>
+
+                {% empty %}
+                <p class="lead">No found.</p>
+            {% endfor %}
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                {% show_latest_posts %}
+
+                <div class="card my-4">
+                    <div class="card-header">
+                        <h2 class="lead bf_ms_first"><small>total publications for today</small></h2>
+                        <span>
+                            <i class="bi bi-pencil-square text-primary mx-2"></i>
+                            <sup class="badge bg-primary text-weiht">{% total_posts %}</sup>
+                        </span>
+                        <span>
+                            <i class="bi bi-check2-circle text-primary mx-2"></i>
+                            <sup class="badge bg-primary text-weiht">{% total_published %}</sup>
+                        </span>
+                    </div>
+                    <div class="card-header">
+                        <h4 class="lead"><small>max comments item</small></h4>
+                    </div>
+                    <div class="card-body">
+                        {% max_commets_posts %}
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for item in most_commented_posts %}
+                                <li class="list-group-item">
+                                    <a class="page_link" href="{{ item.get_absolute_url }}">
+                                        {{ item.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="user_list_paginated my-5">
+            {% if is_paginated %}
+                {% include 'overview_correction/partials/pagination.html' with page=page_obj %}
+            {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascript %}
+{% endblock %}

@@ -1,0 +1,35 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load likes_inclusion_tags %}
+{% block title %} {{ object.rest_complex }} {% endblock title %}
+
+{% block content %}
+
+    <h1 class="container my-5">offers for { object.rest_complex }} </h1>
+    <div class="container">
+        <div class="h-100 p-5 border rounded-3">
+            <div class="card col-sm">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">functional options: {{ object.functional_options }}</li>
+                        <li class="list-group-item">{{ object.inventory_offers | safe }}</li>
+                        <li class="list-group-item">{{ object.tables_editing | safe }}</li>
+                        <li class="list-group-item"><a href="{{ object.file_upload.url }}">{{ object.file_upload }}</a></li>
+                    </ul>
+                </div>
+
+                <div class="card-footer">
+                    {% likes object %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block import_js %}
+<script src="{% static 'likes/includes/likes.js' %}"></script>
+{% endblock %}

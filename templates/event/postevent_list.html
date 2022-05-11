@@ -1,0 +1,51 @@
+
+
+{% extends 'event/home.html' %}
+{% block title %} event | {% endblock title %}
+
+{% block content %}
+	<h1 class="m-4 master_list">post list</h1>
+	<span>keywords | {{ keys_keywords }}</span>
+	<div class="flex_container m_list">
+		{% for p_l in post %}
+			<div class="m-4 fifty">
+				<div class="card post_list">
+					<div class="pagination thumbnail">
+						<h4 class="account_photo">
+						    <img class="account_img" src="{{ p_l.author.profile.image.url }}" alt="{{ p_l.author }}" title="{{ p_l.author }}" />
+						</h4>
+					</div>
+				    <div class="card-body">
+				        <h2 class="card-title">
+				        	<a class="mr-2" href="{% url 'post-detail' p_l.slug %}">{{ p_l.title }}</a>
+				        </h2>
+				        <time class="text-muted">
+				        {{ p_l.date_posted|date:"F d, Y" }}
+				    	</time>
+				        <p class="card-text truncate166">
+				        {{ p_l.description }}</p>
+				        <span>author | {{ p_l.author }}</span>
+				    </div>
+				</div>
+			</div>
+		{% endfor %}
+
+	<div class="m-4 pagination fifty">
+	    <span class="page-link">
+	        {% if post.has_previous %}
+	            <a class= "btn btn-outline-primary btn-sm" class= "btn btn-outline-primary btn-sm" href="?page=1">&laquo; first</a>
+	            <a class= "btn btn-outline-primary btn-sm" href="?page={{ post.previous_page_number }}">previous</a>
+	        {% endif %}
+
+	        <span class="current">
+	            Page {{ post.number }} of {{ post.paginator.num_pages }}
+	        </span>
+
+	        {% if post.has_next %}
+	            <a class= "btn btn-outline-primary btn-sm" href="?page={{ post.next_page_number }}">next</a>
+	            <a class= "btn btn-outline-primary btn-sm" href="?page={{ post.paginator.num_pages }}">last &raquo;</a>
+	        {% endif %}
+	    </span>
+	</div>
+
+{% endblock content %}

@@ -1,0 +1,60 @@
+
+{% extends "user/home.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block filter_gh %}
+
+    <div class="btn-group dropup filter_gh">
+
+        <button type="button" class="m_btn">Действие</button>
+        <button type="button" class="m_btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Переключатель выпадающего списка</span>
+        </button>
+
+      <div class="dropdown-menu">
+        <form class="filter_form h-100 bg-light border rounded-3" method="get">
+            {{ filter.form|crispy }}
+            <button class="m_btn" type="submit">submit</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                {% for obj in filter.qs|slice:":3" %}
+                    <div class="gallery_item">
+                        <div class="card mb-4 shadow-sm">
+                            <figure class="gallery_filter">
+                            <img class="gallery_filter_img" src="{{ obj.image.url }}">
+                                <figcaption class="list-group-item">
+                                <span>{{ obj.name }} | <small>{{ obj.code_g_f }}</small></span>
+                                </figcaption>
+                            </figure>
+                            <div class="card_body_f">
+                                <p class="card-text">
+                                    <small>{{ obj.figuratively | truncatewords:12 }}</small>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        {% if user.is_authenticated %}
+                                            <a class="m_btn btn-outline-primary" href="{% url 'gh_main_detail' obj.slug %}" title="{{ obj.name }}">
+                                                {{ obj.name }} | View
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <span class="text-muted">
+                                        <i class="bi bi-house-door"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>booking by day and hour</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/static/favicon.ico">
+
+    {% include 'bootstrap.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/label_input_button.css' %}">
+
+</head>
+
+<body>
+    <!-- user/home.html -->
+
+    {% include 'load.html' %}
+    {% include 'partials/navbar.html' %}
+    {% include 'partials/topbar_base.html' %}
+
+    <section class="container">
+        {% block content %} {% endblock %}
+    </section>
+
+    <main class="tours home">
+        {% block filter_gh %}{% endblock  %}
+    </main>
+
+{% include 'footer.html' %}
+{% include 'script.html' %}
+
+<div id="messages">
+    {% block messages %}
+        {% include 'messages.html' %}
+    {% endblock %}
+</div>
+
+</body>
+
+</html>

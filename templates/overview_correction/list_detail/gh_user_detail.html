@@ -1,0 +1,86 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load overview_correction_tags %}
+{% block title %} {{ object.name }} {% endblock %}
+
+
+{% block content %}
+    <h1 class="container display-6 my-4">gh user detail</h1>
+    <div class="container shadow-sm p-3 mb-5 bg-body rounded">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card-header">
+                    <h2 class="lead">{{ object.name }}</h2>
+                </div>
+                <div class="m-3">
+
+                    <img class="shadow my-3" src="{{ object.image.url }}" alt="{{ object.name }}" />
+
+                    <ul class="list-group list-group-flush  float-end">
+                        <li class="list-group-item">
+                            <span class="">
+                                Posted on {{ object.modified_at }}
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-lowercase fw-lighter">
+                                by {{ object.author }}
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            {% with comments.count as total_comments %}
+                                <span class="badge bg-primary mb-4 text-white text-lowercase fw-lighter">
+                                    {{ total_comments }}
+                                    <i class="bi bi-chat-text ms-2"></i>
+                                </span>
+                            {% endwith %}
+                        </li>
+                    </ul>
+
+                    <div class="shadow-sm p-3 mb-5 bg-body rounded">
+                        {{ object.specifications | safe }}
+                    </div>
+
+                </div>
+                <a class="m_btn mb-4" href="{% url 'overview_correction:gh_share' object.id %}">
+                    Share this post
+                </a>
+                <div class="card_pagination">
+                    {% if object.author == user %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'overview_correction:gh_update' object.slug %}">update</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'overview_correction:gh_delete' object.slug %}">delete</a>
+                    {% endif %}
+                </div>
+
+                <!-- Similar posts -->
+                <div id="similar" class="white my-4">
+                    <h4 class="item_title p-2">similar posts</h4>
+                    <div class="row">
+
+                        {% for post in similar_posts %}
+                            <div class="col-md-4">
+                                <div class="card-header similar_item_img my-4">
+                                    <img class="similar_img" src="{{ post.image.url}}" alt="{{ object.name }}">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a class="mbtn" href="{{ post.get_absolute_url }}">
+                                            {{ post.name }}
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <span class="p-1 col-auto float-end border">there are no similar posts yet</span>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

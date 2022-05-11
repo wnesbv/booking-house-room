@@ -1,0 +1,218 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load ratings %}
+{% load crispy_forms_tags %}
+{% load overview_correction_tags %}
+{% block title %} {{ object.name }} {% endblock %}
+
+{% block content %}
+
+    <div class="container h-100 p-5 border rounded-3">
+        <h1 class="display-6">{{ object.name }}</h1>
+
+        <div class="m-3">
+            <img class="shadow my-3" src="{{ object.image.url }}" alt="{{ object.name }}" />
+
+            <ul class="list-group list-group-flush float-end">
+                <li class="list-group-item">
+                    <time>Posted on {{ object.modified_at }}</time>
+                </li>
+                <li class="list-group-item">
+                    <span class="">by {{ object.author }}</span>
+                </li>
+                <li class="list-group-item">
+                    {% with comments.count as total_comments %}
+                        <span class="badge bg-primary mb-4 text-white text-lowercase">
+                            {{ total_comments }}
+                            <i class="bi bi-chat-text ms-2"></i>
+                        </span>
+                    {% endwith %}
+                </li>
+            </ul>
+
+            <div class="shadow-sm p-3 mb-5 bg-body rounded">
+                {{ object.specifications | safe }}
+            </div>
+
+            <ul class="list-group list-group-horizontal justify-content-start my-2">
+                {% if user.is_authenticated %}
+                    <li class="list-group-item">
+                    <span class="d-flex">
+                        {% if object.getLikedUser %}
+                            <i data-postid="{{ object.id }}" data-userid="{{ login_user_id }}" class="i_like like-btn fas"></i>
+                            <span class="likes-result mx-1">{{ object.getLikeCount }}</span>
+
+                            {% else %}
+                            <i data-postid="{{ object.id }}" data-userid="{{ login_user_id }}" class="i_like like-btn far"></i>
+                            <span class="likes-result mx-1">{{ object.getLikeCount }}</span>
+                        {% endif %}
+
+                        {% if object.getDisLikedUser %}
+                            <i data-postid="{{ object.id }}" data-userid="{{ login_user_id }}" class="i_like dislike-btn fas"></i>
+                            <span class="dislikes-result mx-1">{{ object.getDislikeCount }}</span>
+
+                            {% else %}
+                            <i data-postid="{{ object.id }}" data-userid="{{ login_user_id }}" class="i_like dislike-btn far"></i>
+                            <span class="dislikes-result mx-1">{{ object.getDislikeCount }}</span>
+                        {% endif %}
+
+                        {% else %}
+                        <span class="list-group list-group-flush">
+                            <span class="d-flex list-group-item">
+                                <i data-postid="{{ object.id }}" class="i_like like-btn"></i>
+                                <span class="likes-result mx-2">{{ object.getLikeCount }}</span>
+                                <i data-postid="{{ object.id }}" class="i_like dislike-btn"></i>
+                                <span class="dislikes-result mx-2">{{ object.getDislikeCount }}</span>
+                            </span>
+                            <span class="list-group-item">
+                                <a class="page-link" href="{% url 'login' %}">log in or register</a>
+                            </span>
+                        </span>
+                    </span>
+                    </li>
+
+                {% endif %}
+                <li class="list-group-item">
+                    {% ratings object template_name='star_ratings/widget_simplified.html' %}
+                </li>
+            </ul>
+        </div>
+
+        <a class="m_btn mb-4" href="{% url 'overview_correction:gh_share' object.id %}" >
+            Share this post
+        </a>
+
+        <!-- Similar posts -->
+        <div id="similar" class="white my-4">
+            <h4 class="item_title p-2">similar posts</h4>
+            <div class="row">
+
+                {% for post in similar_posts %}
+                    <div class="col-md-4">
+                        <div class="card-header similar_item_img my-4">
+                            <img class="similar_img" src="{{ object.image.url}}" alt="{{ object.name }}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="m_btn" href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+                            </h5>
+                        </div>
+                    </div>
+
+                    {% empty %}
+                        <span class="p-1 col-auto float-end border">
+                        there are no similar posts yet
+                    </span>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        {% for comment in comments %}
+            <!-- Comment -->
+            <div class="media my-5">
+                <div class="media-body">
+
+                    <div class="row border-bottom mb-4">
+                        <span class="col-sm">
+                            <sup>{{ forloop.counter }}</sup>
+                            <i class="bi bi-chat-square-text"></i>
+                            <i class="bi bi-person-square"></i>
+                            <sup class="text-uppercase">{{ comment.user }}</sup>
+                        </span>
+                        <span class="col-sm text-uppercase">
+                            <i class="bi bi-clock"></i>
+                            <sup class="fw-lighter">{{ comment.created_at }}</sup>
+                             <i class="bi bi-clock-history"></i>
+                            <sup class="fw-lighter">{{ comment.modified_at }}</sup>
+                        </span>
+                    </div>
+
+                    <p class="m-2">{{ comment.body|linebreaks }}</p>
+
+                    {% if comment.user == user %}
+                        <div class="my-4">
+                            <a class="m_btn" href="{% url 'overview_correction:comment_remove' pk=comment.pk %}">
+                                comment remove
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    <!-- reply -->
+                    {% for reply in comment.reply_set.all %}
+                        <div class="m-4">
+                            <p class="border-bottom text-lowercase fw-lighter">
+                                {{ reply.user }} -- {{ reply.created_at }}
+                            </p>
+                            <p>{{ reply.reply }}</p>
+                        </div>
+
+                        {% if reply.user == user %}
+                            <div class="m-4">
+                                <a class="m_btn" href="{% url 'overview_correction:reply_remove' pk=reply.pk %}">
+                                    reply remove
+                                </a>
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
+
+                    <a class="m_btn ms-4" href="" onclick="ReplyCMT({{comment.pk}})">reply</a>
+
+
+                    <!-- Reply Comment -->
+                    {% if user.is_authenticated %}
+                        <form class="m-4" action="{% url 'overview_correction:reply' comment.pk %}" method="POST">
+                            {% csrf_token %}
+                            <span id="reply_{{comment.pk}}"></span>
+                        </form>
+
+                        {% else %}
+                        <a class="m_btn ml-4" href="{% url 'login' %}">
+                            <small>Login to comment and reply</small>
+                        </a>
+                    {% endif %}
+                    <!-- /reply -->
+
+                </div>
+            </div>
+        {% endfor %}
+
+        <!-- Comments Form -->
+        <div class="card mt-5" data-scroll>
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+
+                <form action="{{ object.get_absolute_url }}" method="POST">
+
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <ul class="list-group list-group-flush mt-4 float-start">
+                        <li class="list-group-item">
+                            <button class="m_btn" type="submit">submit</button>
+                        </li>
+                    </ul>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+
+{% block javascript %}
+<script>
+    function ReplyCMT(id) {
+        event.preventDefault();
+        document.getElementById(`reply_${id}`).innerHTML = "<div class='form_group'><input type='text' name='reply_comment' class='form_control' placeholder='reply...'><label class='form_label' for='id_reply_comment'>reply</label><span class='highlight'></span><span class='bar'></span></div><input type='submit' class='mbtn input_submit'>";
+    }
+</script>
+{% include "overview_correction/like_btn.html" %}
+<script src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+{% endblock %}

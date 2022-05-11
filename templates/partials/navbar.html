@@ -1,0 +1,189 @@
+
+
+{% load static %}
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">1 Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                   <a class="nav-link" href="{% url 'overview_correction:about' %}">about</a>
+                </li>
+                <li class="nav-item">
+                	<a class="nav-link" href="{% url 'contact' %}">contact</a>
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="ListDetail" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ListDetail
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="ListDetail">
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'overview_correction:gh_list' %}">gh list</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'overview_correction:rooms_list' %}">rooms list</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'overview_correction:offers_for' %}">offers for</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'offers_for_rest' %}">offers for rest</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="GuestHouse" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        GuestHouse
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="GuestHouse">
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'index' %}">index</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'overview_correction:home' %}">home</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'my_bookings' %}">my book</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'feedback' %}">feed</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="RestComplex" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        RestComplex
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="RestComplex">
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'index_rest' %}">index</a>
+                        </li>
+
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'home_rest' %}">home</a>
+                        </li>
+
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'my_bookings_rest' %}">my book</a>
+                        </li>
+
+                        <li class="list-group-item">
+                            <a class="dropdown-item" href="{% url 'feedback_rest' %}">feed</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="GHUserList" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            user list
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="GHUserList">
+                            <li class="list-group-item">
+                                <a class="dropdown-item" href="{% url 'overview_correction:gh_user_list' %}">gh user list</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="dropdown-item" href="{% url 'overview_correction:create_gh' %}">create gh</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="list-group-item">
+                                <a class="dropdown-item" href="{% url 'overview_correction:rooms_user_list' %}">rooms user list</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a class="dropdown-item" href="{% url 'overview_correction:create_room' %}">create room</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="NavbarPerson" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ request.user|capfirst }}
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="NavbarPerson">
+                            <li class="list-group-item">
+                                <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                            <li class="list-group-item">
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="list-group-item"><small class="flex_center bg-light">booking</small></li>
+                            <li><hr class="dropdown-divider"></li>
+
+                            {% for group in  request.user.groups.all %}
+                                {% if 'Client' == group.name %}
+                                    <li class="list-group-item">
+                                        <a class="dropdown-item" href="/client/">client</a></li>
+                                {% endif %}
+
+                                {% if 'Agent' == group.name %}
+                                    <li class="list-group-item">
+                                        <a class="dropdown-item" href="/agent/">agent</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="SearchGH" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            search
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="SearchGH">
+                            <form class="list-group" action="{% url 'search_results_gh' %}" method="GET" value="{{request.GET.q}}">
+                                <input class="list-group-item" type="text" name="q" value="{{request.GET.q}}" placeholder="search GH" />
+                                <input class="list-group-item" type="submit" name="submit" value="Search-GH" />
+                            </form>
+                            <li><hr class="dropdown-divider"></li>
+                            <form class="list-group" action="{% url 'search_results_rest' %}" method="GET" value="{{request.GET.q}}">
+                                <input class="list-group-item" type="text" name="q" value="{{request.GET.q}}" placeholder="search RC" />
+                                <input class="list-group-item" type="submit" name="submit" value="Search-RC" />
+                            </form>
+                        </ul>
+                    </li>
+
+                    {% else %}
+
+                    {% url 'login' as login_url %}{% url 'register' as register_url %}
+                    {% if request.get_full_path != login_url and register_url %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">register</a>
+                        </li>
+
+                        {% else %}
+                            {% if request.get_full_path == login_url or register_url %}
+                                {% if request.get_full_path == login_url %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'register' %}">register</a>
+                                    </li>
+                                    {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+
+                    {% endif %}
+
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

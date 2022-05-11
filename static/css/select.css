@@ -1,0 +1,104 @@
+
+
+.nice-select{
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    padding-left: 18px;
+    padding-right: 30px;
+    position: relative;
+    display: block;
+    font-size: 1em;
+    white-space: nowrap;
+    cursor: pointer;
+    clear: both;
+    -webkit-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    transition: all .2s ease-in-out;
+    -webkit-tap-highlight-color: transparent;
+}
+.nice-select:after{
+    content: '';
+    width: 8px;
+    height: 8px;
+    top: 50%;
+    right: 12px;
+    margin-top: -4px;
+    z-index: 10;
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    color: #A7C6D9;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    transition: all .4s linear .25s;
+    transform: rotate(45deg);
+    transform-origin: 66% 66%;
+}
+.nice-select.open:after{
+    transform: rotate(-135deg);
+}
+.nice-select.open .list{
+    pointer-events: auto;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+.nice-select .list{
+    width: 100%;
+    box-sizing: border-box;
+    top: 100%;
+    left: 0;
+    margin-top: -2em;
+    padding: 0;
+    position: absolute;
+    z-index: 9;
+    pointer-events: none;
+    opacity: 0;
+    overflow: hidden;
+    border-radius: 0;
+    background-color: #FDFDFD;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    transition: all .4s linear .25s;
+    transform: translateY(-6em);
+    transform-origin: 50% 0;
+}
+.no-csspointerevents .nice-select .list{
+    display: none;
+}
+.no-csspointerevents .nice-select.open .list{
+    display: block;
+}
+.nice-select .list:hover .option:not(:hover){
+    background-color: transparent !important;
+}
+.nice-select .option{
+    list-style: none;
+    outline: none;
+    margin: 0;
+    color: #5786B3;
+    padding: .4em 1em;
+    transition: color .4s;
+}
+.nice-select .option:hover{
+    color: #515C66;
+    transition: color .25s;
+}
+
+
+.nice-select.disabled{
+    color: #999;
+    pointer-events: none;
+    border-color: #ededed;
+}
+.nice-select.disabled:after{
+    border-color: #ccc;
+}
+.nice-select .option.disabled{
+    color: #999;
+    cursor: default;
+    background-color: transparent;
+}

@@ -1,0 +1,507 @@
+
+
+/*  */
+    h1,h2,h3,h4,h5,h6{
+        color: #5786B3;
+        font-weight: lighter;
+    }
+    h1 .blockquote,
+    h2 .blockquote,
+    h3 .blockquote,
+    h4 .blockquote,
+    h5 .blockquote,
+    h6 .blockquote{
+        font-size: .88em;
+        font-weight: lighter;
+        text-transform: lowercase;
+    }
+    .blockquote{
+        margin: 1em 0 2em 0;
+        padding: 1rem;
+        position: relative;
+        border-left: thin solid;
+    }
+    .blockquote::before{
+        content: '';
+        width: 44%;
+        height: .05rem;
+        bottom: 0;
+        margin: 0 0 0 1em;
+        position: absolute;
+        background-color: #bfd1d9;
+    }
+
+    h1 .dd,
+    h2 .dd,
+    h3 .dd,
+    h4 .dd,
+    h5 .dd,
+    h6 .dd{
+        font-size: .66em;
+        font-weight: lighter;
+        text-transform: lowercase;
+    }
+
+    h1::before,
+    h2::before,
+    h3::before,
+    h4::before,
+    h5::before,
+    h6::before{
+        content: '';
+        width: 44%;
+        height: .05rem;
+        position: absolute;
+        background-color: #5786B3;
+    }
+    h1::before,
+    h2::before,
+    h3::before{
+        margin-left: 2em;
+        right: auto;
+    }
+    .ice_bf_ms_first::before{
+        left: 11%;
+    }
+    .bf_ms_first::before{
+        left: 3em;
+    }
+    h4::before,
+    h5::before,
+    h6::before{
+        margin: -.2em 0 0 2em;
+    }
+    h1.m_btn::before,
+    h2.m_btn::before,
+    h3.m_btn::before,
+    h4.m_btn::before,
+    h5.m_btn::before,
+    h6.m_btn::before{
+        margin: .7em 0 0 2em;
+    }
+    h1::first-letter,
+    h2::first-letter,
+    h3::first-letter{
+        margin-right: .1em;
+        padding: .1em .4em;
+        color: inherit;
+        font-weight: normal;
+        text-transform: capitalize;
+        border: thin solid;
+    }
+    h4::first-letter,
+    h5::first-letter,
+    h6::first-letter{
+        margin-right: .2em;
+        padding: .1em .4em;
+        color: inherit;
+        font-weight: normal;
+        text-transform: capitalize;
+        border: thin solid;
+    }
+
+/*  */
+
+    h1 > * > *,
+    h2 > *,
+    h3 > *{
+        color: #526475;
+        font-weight: lighter;
+    }
+
+    h1 > *::before,
+    h2 > *::before,
+    h3 > *::before{
+        content: '';
+        width: 6rem;
+        height: .05rem;
+        position: absolute;
+        background-color: #a8b8bf;
+    }
+    h1.bg_tape::before,
+    h2.bg_tape::before,
+    h3.bg_tape::before{
+        content: none;
+    }
+    h1 > *::before,
+    h2 > *::before,
+    h3 > *::before{
+        margin: 0 0 0 3rem;
+    }
+    h1 > *::first-letter,
+    h2 > *::first-letter,
+    h3 > *::first-letter{
+        margin-right: .2em;
+        padding: .1em .4em;
+        color: #6d7e8c;
+        font-weight: normal;
+        text-transform: capitalize;
+        border: thin solid;
+    }
+
+/*  */
+
+    form *{
+        color: #515C66;
+        font-weight: 400;
+        text-transform: lowercase;
+    }
+    .ctrl_holder{
+        margin: 2.25em 0;
+        position: relative;
+        box-shadow: 0 .4rem .8rem rgba(0,0,0,.15)
+    }
+
+    .requiredField,
+    .special.textarea + label,
+    .numberinput + label,
+    .django-ckeditor-widget + label{
+        top: -1.66em;
+        left: .25em;
+        position: absolute;
+        font-size: .9em;
+        pointer-events: none;
+    }
+    .requiredField{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    .errorField{
+        font-size: .8em;
+        margin-left: .25em;
+    }
+
+    .textarea::placeholder,
+    .tagwidget::placeholder,
+    .textinput::placeholder,
+    .emailinput::placeholder,
+    .numberinput::placeholder,
+    .datetimeinput::placeholder{
+        opacity: 0;
+    }
+    .textarea:focus::placeholder,
+    .tagwidget:focus::placeholder,
+    .textinput:focus::placeholder,
+    .emailinput:focus::placeholder,
+    .numberinput:focus::placeholder,
+    .datetimeinput:focus::placeholder{
+        opacity: 1;
+    }
+    .textarea,
+    .tagwidget,
+    .textinput,
+    .emailinput,
+    .numberinput,
+    .datetimeinput{
+        width: 100%;
+        padding: .8em;
+        display: block;
+        border: none;
+        border-radius: 0;
+    }
+    .textarea:focus,
+    .tagwidget:focus,
+    .textinput:focus,
+    .emailinput:focus,
+    .numberinput:focus,
+    .datetimeinput:focus{
+        outline: none;
+    }
+    .textarea:focus ~ .bar:before,
+    .textarea:focus ~ .bar:after,
+    .tagwidget:focus ~ .bar:before,
+    .tagwidget:focus ~ .bar:after,
+    .textinput:focus ~ .bar:before,
+    .textinput:focus ~ .bar:after,
+    .emailinput:focus ~ .bar:before,
+    .emailinput:focus ~ .bar:after,
+    .numberinput:focus ~ .bar:before,
+    .numberinput:focus ~ .bar:after,
+    .datetimeinput:focus ~ .bar:before,
+    .datetimeinput:focus ~ .bar:after{
+        width: 50%;
+    }
+
+    .textarea:focus ~ .highlight,
+    .tagwidget:focus ~ .highlight,
+    .textinput:focus ~ .highlight,
+    .emailinput:focus ~ .highlight,
+    .numberinput:focus ~ .highlight,
+    .datetimeinput:focus ~ .highlight{
+        animation: inputlighter .4s ease;
+    }
+
+/*  */
+    input[placeholder]  ~ label{
+        top: -1.66em;
+        font-size: .9em;
+    }
+    .special.textarea:not(:placeholder-shown) + label,
+    .django-ckeditor-widget:not(:placeholder-shown) + label,
+    input:not(:placeholder-shown) ~ label,
+    textarea:not(:placeholder-shown) ~ label{
+        top: -1.66em;
+        color: #515C66;
+        font-size: .9em;
+    }
+    select ~ .requiredField,
+    [value] ~ .requiredField,
+    [type=text]:valid ~ .requiredField,
+    [type=email]:valid ~ .requiredField,
+    [type=password]:valid ~ .requiredField,
+    [type=number]:valid + label{
+        top: -1.66em;
+        color: #515C66;
+        font-size: .9em;
+    }
+    .textarea:focus ~ .requiredField,
+    .tagwidget:focus ~ .requiredField,
+    .textinput:focus ~ .requiredField,
+    .emailinput:focus ~ .requiredField,
+    .datetimeinput:focus ~ .requiredField,
+    .numberinput:focus + label,
+    .special.textarea:focus + label,
+    .django-ckeditor-widget:focus + label{
+        top: -2em;
+        color: #5AA2E6;
+        font-size: .8em;
+    }
+
+/*  */
+
+    .bar{
+        width: 100%;
+        position: relative;
+        display: block;
+    }
+    .bar:before,
+    .bar:after{
+        content: '';
+        width: 0;
+        height: .1em;
+        bottom: 0;
+        position: absolute;
+        background-color: #dfe7f2;
+        transition: all .4s;
+    }
+    .bar:before{
+        left: 50%;
+    }
+    .bar:after{
+        right: 50%;
+    }
+    .highlight{
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        pointer-events: none;
+        opacity: .6;
+    }
+
+    @keyframes inputlighter{
+        from{
+            background-color: #bfd1d9;
+        }
+        to{
+            width: 0;
+            background-color: transparent;
+        }
+    }
+
+
+/* file input */
+
+    .form-check-label.requiredField{
+        margin-left: 2em;
+    }
+    .clearablefileinput{
+        width: 5em;
+        height: 37px;
+        margin: 20px;
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        overflow: hidden;
+        -webkit-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+        outline: none;
+    }
+
+    .formHint{
+        padding: .5em;
+    }
+
+    .ctrl_holder.file_add{
+        width: 50%;
+        padding: 1em;
+        float: left;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    }
+    .ctrl_holder.file_add{
+        display: flex;
+        flex-direction: column-reverse;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        align-content: flex-start;
+
+    }
+    .file_add a{
+        text-decoration: none;
+    }
+    .file_add .requiredField{
+        width: 5em;
+        height: 37px;
+        margin: 20px;
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+        pointer-events: auto;
+        opacity: 1;
+        overflow: hidden;
+        -webkit-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+        border: none;
+        border-radius: 0;
+        outline: none;
+        color: #6c838c;
+        background-color: #e7eaee;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+        transition: all .25s;
+    }
+    .file_add .requiredField:hover{
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
+    }
+
+
+/* file button */
+    .m_btn.m_color{
+        color: #6c838c;
+        background-color: #e7eaee;
+    }
+    .m_btn:before{
+        background-color: #fff;
+    }
+    .m_btn *{
+        color: #fff;
+        text-decoration: none;
+    }
+    .m_btn,
+    a.m_btn{
+        height: 44px;
+        margin: 0 .25em 0 0;
+        padding: 0 1em;
+        position: relative;
+        display: inline-block;
+        z-index: 2;
+        overflow: hidden;
+        border: none;
+        outline: none;
+        font-size: 1em;
+        line-height: 44px;
+        text-decoration: none;
+        text-transform: lowercase;
+        box-sizing: border-box;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+        transition: all .25s;
+        /* color: #4F6275; */
+        color: #fff;
+
+        /* background-color: #EDF1F5; */
+        /* background-color: #32A6E6; */
+        /* background-color: #03BDFA; */
+        /* background-color: #448BFC; */
+        /* background-color: #70ADE6; */
+        /* background-color: #f2f6fa; */
+        background-color: #5786B3;
+    }
+    .m_btn:active,
+    a.m_btn:active{
+        opacity: .8;
+        box-shadow: none;
+    }
+    .m_btn:hover,
+    a.m_btn:hover{
+        opacity: .8;
+    }
+    .burst{
+        width: 0;
+        height: 0;
+        max-width: 0;
+        max-height: 0;
+        top: 0;
+        left: 0;
+        position: absolute;
+        display: inline-block;
+        z-index: 1;
+        pointer-events: none;
+        opacity: .1;
+        border-radius: 100%;
+        background: #fff;
+        transition: width .2s ease-in, height .25s ease-in, opacity .2s ease-in;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    .burst.grow{
+        max-width: 100000px;
+        max-height: 100000px;
+        opacity: .6;
+    }
+    .burst.fade{
+        opacity: 0;
+    }
+
+/*  */
+    .bg_tape{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: stretch;
+    }
+    .bg_tape *{
+        line-height: 1.5;
+    }
+
+/*  */
+
+    .filter_gh .dropdown-menu{
+        min-width: 50vw;
+    }
+    .filter_form{
+        padding: 1em 1em 3em 1em;
+    }
+    .filter_form > div{
+    }
+    .filter_form div > label{
+        margin: 1em;
+    }
+    .filter_form ul{
+        margin: 1em;
+        padding: 1em;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: space-between;
+    }
+    .filter_form ul li{
+        margin: .25em;
+        padding:.5em;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-content: center;
+    }

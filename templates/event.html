@@ -1,0 +1,55 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock title %}</title>
+
+    <meta name="description" content="">
+    <meta name="keywords" content="{% block keywords %} {{ keys_keywords }} {% endblock keywords %}">
+
+    <link rel="icon" href="/static/favicon.ico">
+
+    {% include 'bootstrap.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/label_input_button.css' %}">
+
+</head>
+
+<body>
+    <!-- event.html -->
+    {% include 'partials/navbar.html' %}
+
+    <main class="container event">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+
+{% include 'footer.html' %}
+{% include 'script.html' %}
+
+<script>
+    $(document).ready(function(event) {
+        $('.reply-btn').click(function() {
+            $(this).parent().parent().next('.replied-comments').fadeToggle()
+        });
+
+    });
+</script>
+
+    <div id="messages">
+        {% block messages %}
+            {% include 'messages.html' %}
+        {% endblock %}
+    </div>
+
+
+</body>
+
+</html>

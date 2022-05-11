@@ -1,0 +1,25 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %} gh delete {% endblock %}
+
+{% block assets %}
+{% endblock assets %}
+
+{% block content %}
+
+    <div class="container h-100 p-5 bg-light border rounded-3">
+        <h1 class="mb-5">gh delete</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="my-4">
+                <a class="btn btn-primary btn-sm" href="{% url 'overview_correction:gh_user_detail' object.slug %}">cancellation and refund</a>
+            </div>
+            <div class="my-4">
+                <button class="btn btn-danger btn-sm" type="submit">delete</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

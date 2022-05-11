@@ -1,0 +1,60 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load overview_correction_tags %}
+{% block title %} {{ object.name }} {% endblock %}
+
+
+{% block content %}
+    <h1 class="container display-6 my-4">room user detail</h1>
+    <div class="container shadow-sm p-3 mb-5 bg-body rounded">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card-header">
+                    <div class="card_header_title_detail">
+                        <h1 class="lead">{{ object.name }}</h1>
+                    </div>
+                </div>
+                <div class="m-3">
+
+                    <img class="shadow my-3" src="{{ object.image.url }}" alt="{{ object.name }}" />
+
+                    <ul class="list-group list-group-flush  float-end">
+                        <li class="list-group-item">
+                            <span class="">
+                                Posted on {{ object.modified_at }}
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-lowercase fw-lighter">
+                                by {{ object.author }}
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            {% with comments.count as total_comments %}
+                                <span class="badge bg-primary mb-4 text-white text-lowercase fw-lighter">
+                                    {{ total_comments }}
+                                    <i class="bi bi-chat-text ms-2"></i>
+                                </span>
+                            {% endwith %}
+                        </li>
+                    </ul>
+
+                    <div class="shadow-sm p-3 mb-5 bg-body rounded">
+                        {{ object.specifications | safe }}
+                    </div>
+
+                </div>
+                <div class="card_pagination">
+                    {% if object.author == user %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'overview_correction:room_update' object.slug %}">update</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'overview_correction:room_delete' object.slug %}">delete</a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

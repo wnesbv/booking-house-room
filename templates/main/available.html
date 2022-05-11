@@ -1,0 +1,144 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block carousel_css %}
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock carousel_css %}
+
+{% block content %}
+
+    <!-- available.html -->
+    <h1 class="container lead mb-4">Availability of Rooms</h1>
+    <div class="availability_rooms container d-flex flex-column h-100 p-5 border rounded-3">
+
+        {% for room in rooms %}
+            {% if room.no_rooms == 0 %}
+                <ul class="collapse multi-collapse list-group no_rooms">
+                    <li class="list-group-item">Guest House : {{ room.gh_all.name }}</li>
+                    <li class="list-group-item">Available Rooms = {{ room.no_rooms }}</li>
+                    <li class="list-group-item">Sorry Rooms are Not Available at {{ room.gh_all.name }}</li>
+                </ul>
+
+            {% else %}
+            <div class="free_rooms">
+                <div class="header_available">
+                    <a class="page-link shadow p-3" href="{% url 'gh_main_detail' room.gh_all.slug %}" title="{{ room.gh_all.name }}">
+                        <figure>
+                            <img class="gh_img lazyload" src="{{ room.gh_all.image.url }}" alt="" title="" />
+                            <figcaption>
+                                {{ room.gh_all.name }}
+                            </figcaption>
+                        </figure>
+                    </a>
+                    <div class="list-group list-group-flush shadow p-3 bg-body rounded ms-5">
+                        <span class="list-group-item ice">Total Rooms Available : {{ room.no_rooms }} </span>
+                        <span class="list-group-item ice">Guest House : {{ room.gh_all.name }}</span>
+                        <span class="list-group-item ice">number rooms : {{ room.gh_all.number_rooms }}</span>
+                        <span class="list-group-item ice">number children : {{ room.gh_all.number_children }}</span>
+                        <span class="list-group-item ice">number adults : {{ room.gh_all.number_adults }}</span>
+                        <span class="list-group-item ice">
+                            <small>Guest House : {{ room.gh_all.functionality_gh }}</small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="gh_slider_available shadow mb-5">
+                	{% include 'user/gh_slider.html' %}
+                </div>
+
+                {% for r_m in room.rooms %}
+                <ul class="available list-group list-group-flush mb-5">
+                    <li class="list-group-item">
+                        <span class="table_info">
+                            <span>room name</span><span>{{ r_m.name }}</span>
+                        </span>
+                    <li class="list-group-item">
+                        <span class="table_info">
+                            <span>room icon</span>
+                            <span>
+                                <img class="lazyload" height="44" src="{{ r_m.img_logo.url }}" alt="{{ r_m.type }}" title="{{ r_m.type }}" />
+                            </span>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="table_info">
+                            <span>Room types</span>
+                            <span>{{ r_m.type }}</span>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="table_info">
+                            <span>room functionality</span>
+                            <span>
+                                <a class="btn btn-outline-primary btn-sm" href="{% url 'room_description' r_m.slug %}" title="{{ r_m.functionality_rm }}">
+                                    {{ r_m.functionality_rm }}
+                                </a>
+                            </span>
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="table_info">
+                            <span>number of room available</span>
+                            <span>{{ r_m.count }}</span>
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="th">Book</span>
+                        <form method='post' action='{% url "payment" room.gh_all.id n_n.id r_m.type r_m.count %}'>
+                            {% csrf_token %}
+                            <button class= "btn btn-outline-success btn-sm">Book</button>
+                        </form>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="th">Details</span>
+                        <form method='POST' action="{% url 'room_description' r_m.slug %}">
+                            {% csrf_token %}
+                            <button class= "btn btn-outline-primary btn-sm">Details</button>
+                        </form>
+                    </li>
+                </ul>
+                {% endfor %}
+
+
+                {% for r_m in room.rooms %}
+                <div class="gh_r_slider shadow mb-5">
+                	{% include 'user/gh_r_slider.html' %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="container">
+            <div class=" d-flex justify-content-around">
+                <button class="my-sm-3 btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">open information for other numbers</button>
+
+                <span class="p-5 bg-light border rounded-3 ice col-sm">
+                    If rooms are not Available continue here for waiting
+                </span>
+            </div>
+            <form class="form-group" method="get" action="{% url 'waiting_show' n_n.id %}">
+                {% csrf_token %}
+                <button class= "btn btn-outline-primary btn-sm">Waiting</button>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block carousel %}
+<script src="/static/js/carousel.js"></script>
+<script src="/static/js/carousel_settings.js"></script>
+
+<script src="/static/js/pagination.min.js"></script>
+<script>
+    $('.pagination.custom-pagination').rpmPagination({
+        domElement: '.free_rooms',
+        limit: 2,
+    });
+</script>
+{% endblock %}

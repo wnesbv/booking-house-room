@@ -1,0 +1,155 @@
+
+
+{% extends 'fitness/base.html' %}
+{% load static %}
+
+{% block rotator_css %}
+    <link rel="stylesheet" href="{% static 'css/rotator.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- available.html -->
+    <h1 class="container lead my-5">Availability of Rest</h1>
+    <div class="container d-flex flex-column h-100 p-5 border rounded-3">
+        {% for room in rooms %}
+            {% if room.no_rooms == 0 %}
+
+                <ul class="collapse multi-collapse list-group no_rooms">
+                    <li class="list-group-item">Guest House : {{ room.gh_all.name }}</li>
+                    <li class="list-group-item">Available Rooms = {{ room.no_rooms }}</li>
+                    <li class="list-group-item">Sorry Rooms are Not Available at {{ room.gh_all.name }}</li>
+                </ul>
+
+                {% else %}
+                <div class="h-100 p-5 border rounded-3">
+                        <figure>
+                            <img class="w-100 lazyload" src="{{ room.gh_all.image.url }}" alt="" title="" />
+                            <figcaption class="list-group list-group-flush">
+                                <span class="list-group-item ice">
+                                    <small>Total Rooms Available : {{ room.no_rooms }}</small>
+                                </span>
+                                <h3 class="list-group-item ice">Guest House : {{ room.gh_all.name }}</h3>
+                                <span class="list-group-item ice">
+                                    <small>Guest House : {{ room.gh_all.functionality_gh }}</small>
+                                </span>
+                            </figcaption>
+                        </figure>
+
+                        <div class="col-sm">
+                            {% include 'restcomplex/rotator.html' %}
+                        </div>
+
+                        <div class="h-100 p-5 border rounded-3">
+                            <table class="table table-bordered">
+                                <tr class="tr">
+                                    <th class="th">rest name</th>
+                                    <th class="th">rest icon</th>
+                                    <th class="th">rest types</th>
+                                    <th class="th">rest functionality</th>
+                                    <th class="th">number of rest available</th>
+                                    <th class="th">Book</th>
+                                    <th class="th">Details</th>
+                                </tr>
+
+                                {% for r_st in room.rooms %}
+                                    <tr class="tr">
+                                        <td class="td">{{ r_st.name }}</td>
+                                        <td class="td logo">
+                                            <span class="img_logo">
+                                                <img class="lazyload" src="{{ r_st.img_logo.url }}" alt="{{ r_st.type }}" title="{{ r_st.type }}" />
+                                            </span>
+                                        </td>
+                                        <td class="td">{{ r_st.type }}</td>
+                                        <td class="td">
+                                            <a class="page-link" href="{% url 'restdetails' r_st.slug %}" title="{{ r_st.functionality_kor }}">{{ r_st.functionality_kor }}</a>
+                                        </td>
+                                        <td class="td">{{ r_st.count }}</td>
+                                        <td>
+                                            <form method='post' action='{% url "payment" room.gh_all.id n_n.id r_st.type r_st.count %}'>
+                                                {% csrf_token %}
+                                                <button class= "btn btn-outline-success btn-sm">Book</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form method='POST' action="{% url 'restdetails' r_st.slug %}">
+                                                {% csrf_token %}
+                                                <button class= "btn btn-outline-primary btn-sm">Details</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+
+                        {% for r_st in room.rooms %}
+                            <div class="h-100 p-5 border rounded-3">
+                                {% include 'restcomplex/r_st_rotator.html' %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+        <div class="container">
+            <div class=" d-flex justify-content-around">
+                <button class="my-sm-3 btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">open information for other numbers</button>
+
+                <span class="p-5 bg-light border rounded-3 ice">
+                    If rooms are not Available continue here for waiting
+                </span>
+            </div>
+            <form class="form-group" method="get" action="{% url 'waiting_show' n_n.id %}">
+                {% csrf_token %}
+                <button class= "btn btn-outline-primary btn-sm">Waiting</button>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block rotator %}
+<script src="/static/js/jquery.sliderPro.min.js"></script>
+<script>
+    $(document).ready(($) => {
+        $('.example5').sliderPro({
+            width: 670,
+            height: 500,
+            autoplay: false,
+            orientation: 'vertical',
+            loop: false,
+            arrows: true,
+            buttons: false,
+            thumbnailsPosition: 'right',
+            thumbnailPointer: true,
+            thumbnailWidth: 290,
+            breakpoints: {
+                800: {
+                    thumbnailsPosition: 'bottom',
+                    thumbnailWidth: 270,
+                    thumbnailHeight: 100,
+                },
+                500: {
+                    thumbnailsPosition: 'bottom',
+                    thumbnailWidth: 120,
+                    thumbnailHeight: 50,
+                },
+            },
+        });
+    });
+</script>
+
+<script src="/static/js/pagination.min.js"></script>
+<script>
+
+    $('.pagination.custom-pagination').rpmPagination({
+        domElement: '.free_rooms',
+        limit: 2
+    });
+
+</script>
+
+{% endblock rotator %}

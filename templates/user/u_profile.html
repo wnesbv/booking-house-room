@@ -1,0 +1,11 @@
+
+
+<h4 class="ice">Profile Info:</h4>
+<span>
+Username: {{ user.username }}
+</span>
+{% if first_name or last_name %}
+	<span>
+	Name: {{ user.first_name }} {{ user.last_name }}
+	</span>
+{% endif %}

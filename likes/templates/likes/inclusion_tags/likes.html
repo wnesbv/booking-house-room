@@ -1,0 +1,21 @@
+
+{% load i18n %}
+{% load static %}
+
+{% if likes_enabled %}
+    <span class="likes position-relative">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ content_obj.vote_total }}
+        </span>
+        <span>
+            {% if can_vote %}
+                <a class="liker btn btn-outline-primary btn-sm" href="{% url 'like' content_type content_obj.id 1 %}" rel="nofollow">
+                    {% trans "I Like" %}
+                </a>
+
+                {% else %}
+                <span class="me-3">{% trans "Likes" %}</span>
+            {% endif %}
+        </span>
+    </span>
+{% endif %}

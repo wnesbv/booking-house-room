@@ -1,0 +1,58 @@
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">contact<span class="sr-only">(current)</span></a>
+                </li>
+
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'provider' %}">provider</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ request.user|capfirst }}
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            <li><hr class="dropdown-divider"></li>
+                            <small class="flex_center bg-light">booking</small>
+                            <li><hr class="dropdown-divider"></li>
+
+                                {% for group in  request.user.groups.all %}
+                                    {%  if 'Client' == group.name %}
+                                    <a class="dropdown-item" href="/client/">client</a>
+                                    {% endif %}
+                                    {%  if 'Agent' == group.name %}
+                                    <a class="dropdown-item" href="/agent/">agent</a>
+                                    {% endif %}
+                                {% endfor %}
+
+                        </div>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>

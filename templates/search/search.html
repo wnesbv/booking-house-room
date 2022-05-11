@@ -1,0 +1,122 @@
+
+
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results blog</title>
+    {% include 'bootstrap.html' %}
+
+</head>
+
+<body>
+
+<section class="container">
+    <h1 class="ice">Search Results</h1>
+    <ul class="jumbotron list-group">
+
+        {% if submitbutton == 'Search-GH' and request.GET.q != '' %}
+            {% if results %}
+                <li class="list-group-item">
+                <small>Results for: {{ request.GET.q }}</small>
+                </li>
+                    <!--  -->
+                    {% for result in results %}
+                        <li class="list-group-item">
+                            <small>GH:name</small>
+                            <a href="{% url 'gh_main_detail' result.slug %}">
+                            <span>{{result.name}}</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <small>figuratively</small>
+                            <span>{{result.figuratively}}</span>
+                        </li>
+                    {% endfor %}
+                    <!--  -->
+                {% else %}
+                <span>No search results for this query</span>
+            {% endif %}
+        {% endif %}
+
+        {% if submitbutton == 'Search-RC' and request.GET.q != '' %}
+            {% if results %}
+                <li class="list-group-item">
+                <small>Results for: {{ request.GET.q }}</small>
+                </li>
+                    <!--  -->
+                    {% for result in results %}
+                        <li class="list-group-item">
+                            <small>name</small>
+                            <a href="{% url 'r_c_details' result.slug %}">
+                            <span>{{result.name}}</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <small>figuratively rest</small>
+                            <span>{{result.figuratively_rest}}</span>
+                        </li>
+                    {% endfor %}
+                    <!--  -->
+                {% else %}
+                <span>No search results for this query</span>
+            {% endif %}
+        {% endif %}
+
+        {% if submitbutton == 'Search-S' and request.GET.q != '' %}
+            {% if results %}
+                <li class="list-group-item">
+                <small>Results for: {{ request.GET.q }}</small>
+                </li>
+                    <!--  -->
+                    {% for result in results %}
+                        <li class="list-group-item">
+                            <small>name</small>
+                            <a href="{% url 'movies' result.pk %}">
+                            <span>{{ result.movie_name }}</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <small>annotation</small>
+                            <span>{{ result.movie_des }}</span>
+                        </li>
+                    {% endfor %}
+                    <!--  -->
+                {% else %}
+                <span>No search results for this query</span>
+            {% endif %}
+        {% endif %}
+
+        {% if submitbutton == 'Search-S2' and request.GET.q != '' %}
+            {% if results %}
+                <li class="list-group-item">
+                <small>Results for: {{ request.GET.q }}</small>
+                </li>
+                    <!--  -->
+                    {% for result in results %}
+                        <li class="list-group-item">
+                            <small>name</small>
+                            <a href="{% url 'catering_place' result.pk %}">
+                            <span>{{result.place_name}}</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <small>annotation</small>
+                            <span>{{result.place_des}}</span>
+                        </li>
+                    {% endfor %}
+                    <!--  -->
+                {% else %}
+                <span>No search results for this query</span>
+            {% endif %}
+        {% endif %}
+    </ul>
+</section>
+
+
+{% include 'footer.html' %}
+</body>
+
+</html>

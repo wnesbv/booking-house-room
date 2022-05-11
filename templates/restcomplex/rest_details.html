@@ -1,0 +1,40 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ restdetails.slug }} {% endblock title %}
+
+{% block content %}
+    <!-- rest_details.html -->
+    <div class="container">
+        <h1 class="my-5">RestComplex details</h1>
+        <div class="h-100 p-5 border rounded-3">
+            <figure>
+                <img src="{{ restdetails.image.url }}" alt="">
+                <figcaption>
+                    <span class="col-sm">RestComplex photo:{{ restdetails.name }}</span>
+                </figcaption>
+            </figure>
+
+            <table class="table table-bordered room_details book list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">RestComplex name</th>
+                    <th class="th col-sm">Details</th>
+                    <th class="th col-sm">Slug</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">{{ restdetails.name }}</td>
+                    <td class="td col-sm">{{ restdetails.functionality_rest }}</td>
+                    <td class="td col-sm">{{ restdetails.slug }}</td>
+                </tr>
+            </table>
+            <div class="h-100 p-5 bg-light border rounded-3">
+                {{ restdetails.specifications_rest | safe }}
+            </div>
+
+        </div>
+
+        <button class="form-group btn btn-outline-success" onclick="location.href='/my-bookings'">My Bookings </button>
+    </div>
+
+{% endblock %}

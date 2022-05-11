@@ -1,0 +1,19 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <form method="post" action="{% url 'index' %}" id="options_form">
+        {% csrf_token %}
+        {{ form }}
+        <button class="button" type="submit"> submit </button>
+    </form>
+    <form method="post" action="{% url 'index' %}" id="options_form _hour">
+        {% csrf_token %}
+        {{ form }}
+        <button class="button" type="submit"> submit </button>
+    </form>
+
+{% endblock %}

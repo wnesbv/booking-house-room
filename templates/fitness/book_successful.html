@@ -1,0 +1,48 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- book_successful.html -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <p class="heading-secondary">Rest Details</p>
+                <h2>Your Booking is Successfull</h2>
+                <h3>Booking Details</h3>
+                <table class="table" align="center">
+                    <tr class=" tr">
+                        <th class="th">Parameter</th>
+                        <th class="th">Details</th>
+                    </tr>
+                    <tr class="tr">
+                        <td class="td">Guest House :</td>
+                        <td class="td">{{ reservation.guesthouse }}</td>
+                    </tr>
+                    <tr class="tr">
+                        <td class="td">Room Type :</td>
+                        <td class="td">{{ reservation.rest_type }}</td>
+                    </tr>
+                    <tr class="tr">
+                        <td class="td">Room No :</td>
+                        <td class="td">{{ reservation.rooms_allocated }}</td>
+                    </tr>
+                    <tr class="tr">
+                        <td class="td">Check In :</td>
+                        <td class="td">{{ reservation.start_date}}</td>
+                    </tr>
+                    <tr class="tr">
+                        <td class="td">Check Out :</td>
+                        <td class="td">{{ reservation.end_date }}</td>
+                    </tr>
+                    <tr class="tr">
+                        <td class="heading-tertiary">Book Date :</td>
+                        <td class="heading-tertiary">{{ reservation.booktime }}</td>
+                    </tr>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

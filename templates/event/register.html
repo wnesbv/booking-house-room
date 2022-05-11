@@ -1,0 +1,32 @@
+
+
+{% extends "event.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="m-4 form_event">
+        <form class="list-group" method="POST">
+            {% csrf_token %}
+            <fieldset class="list-group">
+                <legend class="list-group-item">register</legend>
+                <div class="list-group">
+                    {{ form|crispy }}
+                </div>
+            </fieldset>
+            <div class="my-4">
+                <button class= "btn btn-outline-primary btn-sm" type="submit">sign up</button>
+            </div>
+        </form>
+        <div class="list-group my-4">
+            <span class="list-group-item">
+                <small>Already Have An Account?</small>
+            </span>
+            <span class="list-group-item">
+                <a class= "btn btn-outline-primary btn-sm" href="{% url 'login' %}">sign in</a>
+            </span>
+        </div>
+
+    </div>
+
+{% endblock content %}

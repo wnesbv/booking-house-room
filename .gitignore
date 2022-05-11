@@ -1,0 +1,10 @@
+*env
+.env
+*.pyc
+*.pyo
+*.db
+*.md
+.DS_Store
+.coverage
+settings_local.py
+db.sqlite3

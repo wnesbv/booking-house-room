@@ -1,0 +1,94 @@
+
+
+{% csrf_token %}
+<script>
+    $(document).ready(function () {
+        $('.like-btn').on('click', function () {
+            var post_id = $(this).data('postid');
+            var user_id = $(this).data('userid');
+            $clicked_btn = $(this);
+            if($clicked_btn.hasClass('far')) {
+                action = 'like';
+                console.log(action);
+            } else if ($clicked_btn.hasClass('fas')) {
+                action = 'unlike';
+                console.log(action);
+            }
+             $.ajax({
+                url:'',
+                type:'POST',
+                data:{
+                    'action':action,
+                    'post_id':post_id,
+                    'user_id':user_id,
+                    csrfmiddlewaretoken:$('[name=csrfmiddlewaretoken]').val()
+                },
+                beforeSend:function () {
+                  if ({{is_login_user|lower}} == false) {
+                      alert('login register');
+                  }
+                },
+                success:function (data) {
+                    if (action == 'like') {
+                        $clicked_btn.removeClass('far');
+                        $clicked_btn.addClass('fas');
+                    }else if(action == 'unlike') {
+
+                        $clicked_btn.removeClass('fas');
+                        $clicked_btn.addClass('far');
+                    }
+                    var liked  = $clicked_btn.siblings('span.likes-result')
+                    liked.text(data.likes)
+                    var liked  = $clicked_btn.siblings('span.dislikes-result')
+                    liked.text(data.dislikes)
+                    var change_to_dislike = $clicked_btn.siblings('i.dislike-btn')
+                    change_to_dislike.removeClass('fas').addClass('far')
+                }
+            })
+
+        })
+
+        $('.dislike-btn').on('click', function () {
+            var post_id = $(this).data('postid');
+            var user_id = $(this).data('userid');
+            $clicked_btn = $(this);
+            if($clicked_btn.hasClass('far')) {
+                action = 'dislike';
+                console.log(action);
+            } else if ($clicked_btn.hasClass('fas')) {
+                action = 'undislike';
+                console.log(action);
+            }
+             $.ajax({
+                url:'',
+                type:'POST',
+                data:{
+                    'action':action,
+                    'post_id':post_id,
+                    'user_id':user_id,
+                    csrfmiddlewaretoken:$('[name=csrfmiddlewaretoken]').val()
+                },
+                beforeSend:function (xhr, settings) {
+                    if ({{is_login_user|lower}} == false) {
+                        alert('login register');
+                    }
+                },
+                success:function (data) {
+                    if (action == 'dislike') {
+                        $clicked_btn.removeClass('far');
+                        $clicked_btn.addClass('fas');
+                    }else if(action == 'undislike') {
+                        $clicked_btn.removeClass('fas');
+                        $clicked_btn.addClass('far');
+                    }
+                    var liked  = $clicked_btn.siblings('span.likes-result')
+                    liked.text(data.likes)
+                    var disliked  = $clicked_btn.siblings('span.dislikes-result')
+                    disliked.text(data.dislikes)
+                    var change_to_dislike = $clicked_btn.siblings('i.like-btn')
+                    change_to_dislike.removeClass('fas').addClass('far')
+                }
+            })
+        })
+    });
+</script>

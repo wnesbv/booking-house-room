@@ -1,0 +1,100 @@
+.date-selector-wrapper{
+    width: 200px;
+    padding: 3px;
+    position: absolute;
+    font-size: 12px;
+    -webkit-user-select: none;
+        -ms-user-select: none;
+    background-color: #fff;
+    box-shadow: 1px 1px 10px 1px #5c5c5c;
+    /* user-select: none; */
+}
+.cal-header,
+.cal-row{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    text-align: center;
+    line-height: 30px;
+}
+.cal-cell,
+.cal-nav{
+    cursor: pointer;
+}
+.cal-day-names{
+    height: 25px;
+    line-height: 25px;
+}
+.cal-day-names .cal-cell{
+    font-weight: bold;
+    cursor: default;
+}
+.cal-cell-prev,
+.cal-cell-next{
+    color: #777;
+}
+.cal-months .cal-row,
+.cal-years .cal-row{
+    height: 60px;
+    line-height: 60px;
+}
+.cal-nav-prev,
+.cal-nav-next{
+    flex: .15;
+}
+.cal-nav-current{
+    font-weight: bold;
+
+    flex: .75;
+}
+.cal-months .cal-cell,
+.cal-years .cal-cell{
+    flex: .25;
+}
+.cal-days .cal-cell{
+    flex: .143;
+}
+.cal-value{
+    color: #fff;
+    background-color: #286090;
+}
+.cal-cell:hover,
+.cal-nav:hover{
+    background-color: #eee;
+}
+.cal-value:hover{
+    background-color: #204d74;
+}
+
+/* time footer */
+.cal-time{
+    height: 27px;
+    display: flex;
+    justify-content: flex-start;
+    line-height: 27px;
+}
+.cal-time-label,
+.cal-time-value{
+    text-align: center;
+
+    flex: .12;
+}
+.cal-time-slider{
+    height: 100%;
+    background-image: linear-gradient(to right, #d1d8dd, #d1d8dd);
+    background-repeat: no-repeat;
+    background-position: left 50%;
+    background-size: 100% 1px;
+
+    flex: .77;
+}
+.cal-time-slider input{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    user-select: auto;
+    outline: 0;
+    background: 0 0;
+
+    -webkit-appearance: none;
+}

@@ -1,0 +1,52 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ ghdetails.slug }} {% endblock title %}
+
+{% block carousel_css %}<link rel="stylesheet" href="/static/css/carousel.css">{% endblock carousel_css %}
+
+{% block content %}
+    <!-- gh_description.html -->
+    <h1 class="container lead mb-4">GH details</h1>
+    <div class="container">
+
+        <div class="h-100 p-5 mb-5 border rounded-3">
+            <figure>
+                <img class="gh_photo shadow p-3 mb-3" src="{{ ghdetails.image.url }}" alt="gh_photo" />
+                <figcaption>
+                    <h4 class="my-4">{{ ghdetails.name }} <small><sub>GH photo:</sub></small></h4>
+                </figcaption>
+            </figure>
+
+            <div class="availability_rooms shadow">
+                {% include 'user/gh_details_slider.html' %}
+            </div>
+
+            <table class="table table-bordered room_details book list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">GH name</th>
+                    <th class="th col-sm">Details</th>
+                    <th class="th col-sm">Slug</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">{{ ghdetails.name }}</td>
+                    <td class="td col-sm">{{ ghdetails.functionality_gh }}</td>
+                    <td class="td col-sm">{{ ghdetails.slug }}</td>
+                </tr>
+            </table>
+            <div>
+                {{ ghdetails.specifications | safe }}
+            </div>
+        </div>
+
+        <button class="form-group btn btn-outline-success" onclick="location.href='/my-bookings'">My Bookings </button>
+    </div>
+
+{% endblock %}
+
+
+{% block carousel %}
+<script src="/static/js/carousel.js"></script>
+<script src="/static/js/carousel_settings.js"></script>
+{% endblock %}

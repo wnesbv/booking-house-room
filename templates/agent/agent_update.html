@@ -1,0 +1,100 @@
+
+
+{% extends 'agent/common_agent.html' %}
+
+{% block common_agent %}
+
+    <div class="jumbotron container">
+        <!-- agent_appointment_update.html -->
+        <div class="col-sm">
+            <div class="row">
+                <div class="account_photo">
+                    <img class="account_img" src="{{ object.photo.url }}" />
+                </div>
+                <div class="col-sm">
+                    <h3 class="">Create Appointment</h3>
+                </div>
+
+                <div>
+                    <form method="GET" action="">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="q" placeholder="Search Date" placeholder="Search With Name" aria-label="Search">
+                        </div>
+                        <button class= "btn btn-outline-primary btn-sm" type="submit" value="Search">Search</button>
+                    </form>
+                </div>
+
+                <form class="m-4" method="POST" action="">{% csrf_token %}
+                    <div class="row" id="datepairExample">
+                        <div class="col">
+                            <input class="form-control" type="text" name="{{form.date.name}}" required id="id_{{form.date.name}}" placeholder="{{form.date.value}}">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="{{form.time_start.name}}" required id="id_{{form.time_start.name}}" required placeholder="{{form.time_start.value}}">
+                        </div> to
+                        <div class="col">
+                            <input class="form-control" type="text" name="{{form.time_end.name}}" required id="id_{{form.time_end.name}}" required placeholder="{{form.time_end.value}}">
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" name="{{form.room_number.name}}" required id="id_{{form.room_number.name}}" required placeholder="{{form.room_number.value}}">
+                        </div>
+                        <div class="col">
+                            <button class="form-control" type="submit">Update
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="m-4 table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Room Number</th>
+                        </tr>
+                    </thead>{% for appoint in query %}
+
+                    {% if appoint.appointment_with != '' %}
+
+                    <tbody>
+                        <tr>
+                            <td>{{appoint.date}}</td>
+                            <td>{{appoint.time_start}} - {{appoint.time_end}}</td>
+                            <td>{{appoint.room_number}}</td>
+                            <td>
+                                <button class= "btn btn-outline-primary btn-sm" title="Already booked, Not editable" type="button">Booked By: {{appoint.appointment_with}}
+                                </button>
+                            </td>
+                            </td>
+                        </tr>
+                    </tbody>{% endif %}
+                    {% if appoint.appointment_with == '' %}
+
+                    <tbody>
+                        <tr>
+                            <td>{{appoint.date}}</td>
+                            <td>{{appoint.time_start}} - {{appoint.time_end}}</td>
+                            <td>{{appoint.room_number}}</td>
+                            <td>
+                                <a href='{% url "appointment_delete" indicator=appoint.id %}'>
+                                    <button class="btn btn-light" type="submit">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                </a>
+                                <a href='{% url "agent_update" indicator=appoint.id %}'>
+                                    <button class="btn btn-light" type="submit">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>{% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock common_agent %}

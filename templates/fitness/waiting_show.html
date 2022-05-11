@@ -1,0 +1,42 @@
+
+
+{% extends 'fitness/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- waiting_show.html -->
+    <div class="container">
+        <h2 class="heading-tertiary">Availability of Rest</h2>
+        {% for room in rooms %}
+            <h3 class="heading-tertiary">Rest : {{ room.gh_all.name }}</h3>
+            <table class="table">
+                <tr class="tr jumbotron">
+                    <th class="th">Rooms Types</th>
+                    <th class="th">Number of Waiting</th>
+                    <th class="th">Continue Waiting</th>
+                    <th class="th">Details</th>
+                </tr>
+
+                {% for r in room.room2 %}
+                    <tr class="tr jumbotron">
+                        <td class="td">{{ r.type }}</td>
+                        <td class="td">{{ r.count }}</td>
+                        </td>
+                        <td align="center">
+                            <form method="post" action="{% url 'waiting' room.gh_all.id n_n.id r.type %}">
+                                {% csrf_token %}
+                                <button class="button">Waiting</button>
+                            </form>
+                        </td>
+                        <td>
+                            <button class="button" onclick="location.href=">Details</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

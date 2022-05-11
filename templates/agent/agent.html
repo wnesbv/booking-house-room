@@ -1,0 +1,53 @@
+
+
+{% extends 'agent/common_agent.html' %}
+
+{% block common_agent %}
+
+    <div class="jumbotron container">
+        <!-- agent.html -->
+        <div class="col-sm">
+            <div class="row">
+                <div class="account_photo col-sm">
+                    <img class="account_img" src="{{ user.profile.image.url }}" />
+                </div>
+                <div class="col-sm">
+                    <h3 class="">My Appointment...</h3>
+                </div>
+                <div>
+                    <form method="GET" action="">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="q" placeholder="Search Name/Date" placeholder="Search With Name" aria-label="Search">
+                        </div>
+                        <button class= "btn btn-outline-primary btn-sm" type="submit" value="Search">Search</button>
+                    </form>
+                </div>
+                <hr>
+            </div>
+            <table class="jumbotron table">
+                <thead>
+                    <tr>
+                        <th scope="col">Appointment With</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Room Number</th>
+                    </tr>
+                </thead>
+                {% for appoint in query %}
+                    {% if appoint.appointment_with != '' %}
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{appoint.appointment_with}}</th>
+                                <td>{{appoint.date}}</td>
+                                <td>{{appoint.time_start}} - {{appoint.time_end}}</td>
+                                <td>{{appoint.room_number}}</td>
+                            </tr>
+                        </tbody>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+{% endblock common_agent %}

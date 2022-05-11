@@ -1,0 +1,23 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %} room delete {% endblock %}
+
+{% block content %}
+
+    <div class="container h-100 p-5 bg-light border rounded-3">
+        <h1 class="mb-5">room delete</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="my-4">
+                <a class="btn btn-primary btn-sm" href="{% url 'overview_correction:room_user_detail' object.slug %}">cancellation and refund</a>
+            </div>
+            <div class="my-4">
+                <p>Are you sure you want to delete "{{ object }}"?</p>
+                <input type="submit" value="Confirm">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

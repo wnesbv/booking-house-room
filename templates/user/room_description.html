@@ -1,0 +1,86 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ roomdetails.slug }} {% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="my-5">room details bookings</h1>
+        <div class="h-100 p-5 border rounded-3">
+            <figure>
+                <img src="{{ roomdetails.image.url }}">
+                <figcaption>
+                    <span class="col-sm">GH photo:{{ roomdetails.name }}</span>
+                </figcaption>
+            </figure>
+
+            <table class="table table-bordered room_details book list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">Room Type</th>
+                    <th class="th col-sm">Details</th>
+                    <th class="th col-sm">Slug</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">Room Type : {{ roomdetails.room_type }}</td>
+                    <td class="td col-sm">Details: {{ roomdetails.functionality_rm }}</td>
+                    <td class="td col-sm">Slug | {{ roomdetails.slug }}</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <h4 class="m-5">room details all default</h4>
+        <div class="list-inline">
+
+            <table class="table table-bordered room_details all_default list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">Room Type</th>
+                    <th class="th col-sm">Details</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">Room Type : Single Non</td>
+                    <td class="td col-sm">Details Details</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered room_details all_default list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">Room Type</th>
+                    <th class="th col-sm">Details</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">Room Type : Double Non</td>
+                    <td class="td col-sm">Details</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered room_details all_default list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">Room Type</th>
+                    <th class="th col-sm">Details</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">Room Type : Single</td>
+                    <td class="td col-sm">Details</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered room_details all_default list-inline-item">
+                <tr class="tr">
+                    <th class="th col-sm">Room Type</th>
+                    <th class="th col-sm">Details</th>
+                </tr>
+                <tr class="tr">
+                    <td class="td col-sm">Room Type : Double</td>
+                    <td class="td col-sm">Details</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <button class="form-group btn btn-outline-success" onclick="location.href='/my-bookings'">My Bookings </button>
+    </div>
+
+{% endblock %}

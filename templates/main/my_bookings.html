@@ -1,0 +1,79 @@
+
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container jumbotron">
+        <h2 class="ice">Current Bookings</h2>
+        {% if reservation %}
+            <h4 class="ice"><small>Confirmed Bookings</small></h4>
+            <table class="table">
+                <tr class="tr">
+                    <th class="th">Guest House</th>
+                    <th class="th">Room Type</th>
+                    <th class="th">Room</th>
+                    <th class="th">CheckIn</th>
+                    <th class="th">CheckOut</th>
+                    <th class="th">BookDate</th>
+                    <th class="th">Action</th>
+                </tr>
+                {% for r_m in reservation%}
+                {% if r_m.waiting == False %}
+                <tr class="tr">
+                    <td class="td">{{ r_m.guesthouse }}</td>
+                    <td class="td">{{ r_m.room_type }}</td>
+                    <td class="td">{{ r_m.rooms_allocated }}</td>
+                    <td class="td">{{ r_m.start_date }}</td>
+                    <td class="td">{{ r_m.end_date }}</td>
+                    <td class="td">{{ r_m.booktime }}</td>
+                    <td>
+                        <form method="get" action="{% url 'cancel' r_m.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-warning">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endif%}
+                {% endfor %}
+            </table>
+
+            <h3 align="center" class="td">Waiting Bookings</h3>
+            <table class="table" align="center">
+                <tr class="tr">
+                    <th class="th">Guest House</th>
+                    <th class="th">Room Type</th>
+                    <th class="th">Room</th>
+                    <th class="th">CheckIn</th>
+                    <th class="th">CheckOut</th>
+                    <th class="th">BookDate</th>
+                    <th style="color: white;" class="th">Action</th>
+                </tr>
+                {% for r_m in reservation%}
+                {% if r_m.waiting == True %}
+                <tr class="tr">
+                    <td class="td">{{ r_m.guesthouse }}</td>
+                    <td class="td">{{ r_m.room_type }}</td>
+                    <td class="td">{{ r_m.rooms_allocated }}</td>
+                    <td class="td">{{ r_m.start_date }}</td>
+                    <td class="td">{{ r_m.end_date }}</td>
+                    <td class="td">{{  r_m.booktime }}</td>
+                    <td>
+                        <form method="get" action="{% url 'cancelwaiting' r_m.id %}">{% csrf_token %}
+                            <button class="btn btn-outline-warning">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endif%}
+                {% endfor %}
+            </table>
+
+            {% else %}
+            <h3 class="ice">You have no current Bookings</h3>
+        {% endif %}
+    </div>
+
+{% endblock %}

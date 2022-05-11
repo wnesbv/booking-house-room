@@ -1,0 +1,56 @@
+
+
+    <section class="list-group">
+        <h1 class="ice my-4">RestComplex ListGalleryFilter</h1>
+        <div class="list-group-item" id="filter-controls">
+            <a class="btn btn-outline-primary btn-sm" data-tag="all" href="#">All</a>
+            <a class="btn btn-outline-primary btn-sm" data-tag="01|one|rest|filter" href="#">one</a>
+            <a class="btn btn-outline-primary btn-sm" data-tag="02|two|rest|filter" href="#">two</a>
+        </div>
+    </section>
+
+    <div class="album container h-100 p-3 mb-5 border rounded-3">
+        <div class="container">
+
+            <div id="myList">
+                <div class="row">
+                    {% for rc in rest_list_view %}
+                        <div class="gallery_item" data-category="{{ rc.function_code }}">
+                            <div class="card mb-4 shadow-sm">
+                                <figure class="gallery_filter">
+                                    <img class="gallery_filter_img" src="{{ rc.image.url }}" alt="">
+                                    <figcaption class="list-group-item">
+                                        <span>{{ rc.name }} | <small>{{ rc.function_code }}</small></span>
+                                    </figcaption>
+                                </figure>
+                                <div class="card_body_f">
+                                    <p class="card-text">
+                                        <small>{{ rc.figuratively_rest | truncatewords:10 }}</small>
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        {% if user.is_authenticated %}
+                                            <a class="btn btn-sm btn-outline-primary" href="{% url 'r_c_details' rc.slug %}" title="{{ rc.name }}">
+                                                {{ rc.name }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <span class="text-muted">
+                                        <i class="bi bi-tree"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="user_list_paginated my-5">
+            {% if is_paginated %}
+                {% include 'overview_correction/partials/pagination.html' with page=page_obj %}
+            {% endif %}
+            </div>
+
+        </div>
+    </div>

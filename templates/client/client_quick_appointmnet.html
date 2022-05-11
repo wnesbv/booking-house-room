@@ -1,0 +1,67 @@
+
+
+{% extends 'client/common_client.html' %}
+
+{% block common_client %}
+
+    <div class="jumbotron container">
+        <div class="col-sm">
+            <div class="row"><img class="account_img" src="{{ face.face.url }}" alt="{{ appoint.user }}" />
+                <div class="account_photo">
+                    <img class="account_img" src="{{ user.profile.image.url }}" />
+                </div>
+                    <div class="jumbotron col-sm">
+                        <h3 class="">Quick Appointmnet</h3>
+                    </div>
+                    <form method="GET" action="">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="q" placeholder="Search By Teacher Name" placeholder="Search With Name" aria-label="Search">
+                        </div>
+                        <button class= "btn btn-outline-primary btn-sm" type="submit" value="Search">Search</button>
+                    </form>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Teacher Name</th>
+                            <th scope="col">Profile Picture</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Available Free Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appoint in query %}
+                        {% if appoint.appointment_with == '' %}
+                        <tr>
+                            <th scope="row">{{appoint.user}}</th>
+
+                            <td>
+                                <span class="booking_photo">
+                                    <img class="booking_img" src="{{ appoint.user.profile.image.url }}" alt="{{ appoint.user }}" />
+                                </span>
+                            </td>
+
+                            <td>{{appoint.date}}</td>
+                            <td>
+                                <span class="row">
+                                    <span class="col-sm">
+                                    {{appoint.time_start}} - {{appoint.time_end}}
+                                    {{appoint.room_number}}
+                                    </span>
+                                    <span  class="col-sm">
+                                    <a href='{% url "appointment_update" indicator=appoint.id %}'>
+                                        <button class= "btn btn-outline-primary btn-sm" type="submit">Book Now</button>
+                                    </a>
+                                    </span>
+                                </span>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock common_client %}

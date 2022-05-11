@@ -1,0 +1,14 @@
+
+{% load overview_correction_tags %}
+
+<!-- max commets -->
+    <ul class="list-group">
+        {% for post in max_commets %}
+            <li class="list-group-item">
+                <a class="page_link" href="{{ post.get_absolute_url }}">
+                    {{ post.title }}
+                    <sup class="badge bg-primary">{% quantity_comments %}</sup>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>

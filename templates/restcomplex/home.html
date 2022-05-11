@@ -1,0 +1,65 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} booking by day and hour {% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/static/favicon.ico">
+
+    {% include 'bootstrap.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/label_input_button.css' %}">
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+
+</head>
+
+<body>
+
+    {% include 'load.html' %}
+    {% include 'partials/navbar.html' %}
+    {% include 'partials/topbar_base_rest.html' %}
+
+    <section class="container">
+        {% block content %} {% endblock %}
+    </section>
+
+    <main class="tours">
+    {% include 'restcomplex/gallery_filter.html' %}
+    </main>
+
+{% include 'footer.html' %}
+{% include 'script.html' %}
+
+<div id="messages">
+    {% block messages %}
+        {% include 'messages.html' %}
+    {% endblock %}
+</div>
+
+<script src="/static/libs/ling-gallery-filter.js"></script>
+<script>
+$(document).ready(() => {
+    $('#myList').lingGalleryFilter({
+        tagContainer: $('#filter-controls'),
+    });
+});
+</script>
+
+{% comment %}
+    {% include 'restcomplex/pagination_js.html' %}
+{% endcomment %}
+
+
+</body>
+
+</html>

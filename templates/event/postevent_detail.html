@@ -1,0 +1,80 @@
+
+
+{% extends "event.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+<title>{% block title %} event | {{ post.title }} {% endblock title %}</title>
+
+{% block content %}
+<div class="container flex_horizon">
+    <div class="pagination thumbnail">
+        <div class="account_photo">
+            <img class="account_img" src="{{ post.author.profile.image.url }}" alt="{{ post.author }}" title="{{ post.author }}" />
+        </div>
+    </div>
+
+    <h4>{{ post.author }}</h4>
+    <span>{{ keys_keywords }}</span>
+
+    <div class="m-4 row nth_child">
+        <div class="col-sm">
+            <h2>{{ post.Title_of_the_Event }}</a></h2>
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            <p class="article-content">{{ post.description }}</p>
+        </div>
+        <div class="col-sm">
+            <img class="photo_datall" src="{{ post.fullimage.url }}" alt="{{ post.title }}" title="{{ post.author }}" />
+        </div>
+
+
+            <div class="container m-4 flex_horizon">
+            {% if request.user.is_authenticated %}
+                <hr class="col-sm">
+                <h5 class="page-item">comments</h5>
+                <span class="page-item h2">
+                    <i class="bi bi-chat"></i>
+                </span>
+                <form class="form-group" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ comment_form|crispy }}
+                    <button class= "btn btn-outline-primary btn-sm" type="submit">Submit</button>
+                </form>
+                <hr>
+
+                <div class="col-sm">
+                {{ comments.count }} Comment{{ comments|pluralize }}
+                {% for j in comments %}
+                    <blockquote class="blockquote">
+                        <p class="mb-0">{{ j.comment }}</p>
+                        <footer class="blockquote-footer">by <cite title="Source title">{{ j.user|capfirst }}</cite>
+                            <button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm"> Reply</button>
+                        </footer>
+                    </blockquote>
+
+                    <div class="replied-comments container mt-2" style="display:none;">
+                        {% for reply in j.replies.all %}
+                        <blockquote class="blockquote">
+                            <p class="mb-0">{{ reply.comment }}</p>
+                            <footer class="blockquote-footer">by <cite title="Source title">{{ reply.user|capfirst }}</cite>
+                            </footer>
+                        </blockquote>
+                        {% endfor %}
+                        <div class="form-group row">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="comment_id" value="{{ j.id }}">
+                                {{ comment_form|crispy }}
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+            {% endif %}
+            </div>
+    </div>
+
+</div>
+
+{% endblock content %}

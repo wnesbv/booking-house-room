@@ -1,0 +1,53 @@
+
+
+{% extends 'client/common_client.html' %}
+
+{% block common_client %}
+
+    <div class="jumbotron container">
+
+        <div class="col-sm">
+            <div class="row">
+                <div class="account_photo">
+                    <img class="account_img" src="{{ user.profile.image.url }}" />
+                </div>
+                <div class="col-sm">
+                    <h3 class="">My Appointment</h3>
+                </div>
+                <div>
+                    <form class="form-group" method="GET" action="">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="q" placeholder="Search By Agent Name" placeholder="Search With Name" aria-label="Search">
+                        </div>
+                        <div class="form-group"></div>
+                            <button  class= "btn btn-outline-primary btn-sm" type="submit" value="Search">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="jumbotron table">
+                <thead>
+                    <tr>
+                        <th scope="col">Appointment With</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Room Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appoint in query %}
+                        <tr>
+                            <th scope="row">{{appoint.user}}</th>
+                            <td>{{appoint.date}}</td>
+                            <td>{{appoint.time_start}} - {{appoint.time_end}}</td>
+                            <td>{{appoint.room_number}}</td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock common_client %}

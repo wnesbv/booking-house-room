@@ -1,0 +1,163 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>booking by day and hour</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/static/favicon.ico">
+
+    {% include 'bootstrap.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/label_input_button.css' %}">
+    <link rel="stylesheet" href="{% static 'about/css/rotator.css' %}">
+
+</head>
+
+<body>
+    {% include 'load.html' %}
+    {% include 'partials/navbar.html' %}
+    {% include 'partials/topbar_base.html' %}
+
+
+    <main class="container">
+        <h1 class="my-5">photo materials</h1>
+        <div class="cn_wrapper shadow-sm p-3 mb-5 bg-body rounded">
+            <div id="cn_preview" class="cn_preview">
+                {% for object in object_list %}
+                    <div class="cn_content">
+                        <div class="cn_fr_img">
+                            <img src="{{ object.guest_house.image.url }}" alt="card image">
+                        </div>
+
+                        <h2 class="lead">name: {{ object.name }}</h2>
+                        <h3 class="lead mt-4">guest_house.name: {{ object.guest_house.name }}</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span>g house.figuratively: {{ object.guest_house.figuratively | truncatewords:5 }}</span>
+                            </li>
+                            <li class="list-group-item">
+                            <span>explanation: {{ object.explanation | truncatewords:22 }}</span>
+                            </li>
+                            <li class="list-group-item">
+                            <a class="m_btn" href="{% url 'overview_correction:gh_detail' slug=object.guest_house.slug %}" target="_blank">
+                                read more
+                            </a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <div id="cn_list" class="cn_list">
+                <div class="cn_page" style="display:block;">
+                    <div class="about">
+                        <div class="d-flex">
+                            {% for object in object_list %}
+                            <div class="cn_item {% if forloop.first %}selected{% endif %}">
+                                <span class="obj_id">{{ object.id }}</span>
+                                <div class="cn_fr_img">
+                                    <img src="{{ object.guest_house.image.url }}" alt="cn_list image">
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        {% comment %}
+                        <div class="pagination shadow-sm p-3 mb-5 bg-body rounded">
+                            <span class="d-flex">
+                                {% if page_obj.has_previous %}
+                                    <a class="page-link" href="?page=1">&laquo; first</a>
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                    <span class="obj_pagination mx-2">
+                                        {{ page_obj.previous_page_number }}
+                                    </span>
+                                    </a>
+                                {% endif %}
+
+                                {% if page_obj.has_next %}
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">nextt &raquo;</a>
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                                    <span class="obj_pagination mx-2">
+                                        {{ page_obj.paginator.num_pages }}
+                                    </span>
+                                    </a>
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% endcomment %}
+
+                        <div class="about_pagination shadow-sm p-3 rounded">
+                            <ul class="d-flex">
+                                <li class="page-item">
+                                    {% if page_obj.has_previous %}
+                                        <li class="previous">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                                <span aria-hidden="true">‹</span>
+                                            </a>
+
+                                        {% else %}
+                                        <li class="previous disabled">
+                                            <a class="page-link">‹</a>
+                                    {% endif %}
+                                        </li>
+
+                                    {% for page in page_obj.paginator.page_range %}
+                                        {% if page == page_obj.number %}
+                                            <li class="pg active">
+                                                <a class="page-link" href="?page={{page}}">
+                                                    <span class="obj_pagination mx-2">
+                                                        {{page}}
+                                                    </span>
+                                                </a>
+
+                                            {% else %}
+                                            <li class="pg">
+                                                <a class="page-link" href="?page={{page}}">
+                                                    <span class="obj_pagination mx-2">
+                                                        {{page}}
+                                                    </span>
+                                                </a>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                <li class="page-item">
+                                    {% if page_obj.has_next %}
+                                        <li class="previous">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">›</a>
+                                        </li>
+
+                                    {% else %}
+                                    <li class="next disabled">
+                                        <a class="page-link">›</a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+{% include 'footer.html' %}
+{% include 'script.html' %}
+
+
+<script src="/static/about/js/jquery.easing.min.js"></script>
+<script src="/static/about/js/about.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+
+
+{% extends "event.html" %}
+{% block title %} logout {% endblock title %}
+
+
+{% block content %}
+    <h1 class="container display-6 my-5">Log In Again</h1>
+    <div class="h-100 p-5 border rounded-3 my-5">
+        <a class= "m_btn" href="{% url 'login' %}">Log In Again</a>
+    </div>
+{% endblock %}

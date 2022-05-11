@@ -1,0 +1,50 @@
+
+
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} Easy Appoint {% endblock title %}</title>
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/static/favicon.ico">
+
+    {% include 'bootstrap.html' %}
+    <link rel="stylesheet" href="/static/css/common.css">
+
+</head>
+
+<body class="login">
+
+{% block body %}
+{% endblock %}
+
+
+{% include 'script.html' %}
+
+<link rel="stylesheet" href="{% static 'datetimepicker/dtsel.css' %}">
+<script src="{% static 'datetimepicker/dtsel.js' %}"></script>
+
+<script>
+    instance = new dtsel.DTS('input[name="start_date"]',  {
+        showTime: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "HH:MM"
+    });
+    instance = new dtsel.DTS('input[name="end_date"]',  {
+        showTime: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "HH:MM"
+    });
+</script>
+
+
+</body>
+
+
+</html>

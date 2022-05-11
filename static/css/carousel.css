@@ -1,0 +1,51 @@
+
+
+.js-slider.isystkSlider *{
+    margin: 0;
+    padding: 0;
+}
+.isystkSlider{
+    width: calc(80vw - 3rem);
+    position: relative;
+    overflow: hidden;
+}
+.isystkSlider .view-layer{
+    width: calc(80vw - 3rem);
+    overflow: hidden;
+}
+.availability_rooms .view-layer img{
+    width: calc(80vw - 3rem);
+    height: auto;
+}
+.isystkSlider ul.parent{
+    height: 80vh;
+    display: flex;
+}
+.isystkSlider li.child{
+    float: left;
+}
+.isystkSlider img{
+    vertical-align: middle;
+}
+.isystkSlider .paging{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.paging{
+    margin: 24px 0;
+}
+.js-slider.isystkSlider .paging{
+    margin: 1em 0;
+}
+.js-slider.isystkSlider .paging li{
+    margin: 0 .2em;
+    overflow: hidden;
+}
+.availability_rooms .paging img{
+    width: auto;
+    height: 96px;
+}

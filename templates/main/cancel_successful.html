@@ -1,0 +1,44 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- cancel_successful.html -->
+	<div class="container">
+	    <h4 class="col-sm">Cancellation</h4>
+	    <div class="col-sm">
+	        <h2 class="ice">Your Booking is Successfully Cancelled</h2>
+	        <h4><small>Cancellation Details:</small></h4>
+	        <table class='table'>
+	            <tr class='tr'>
+	                <th class="th">Parameter</th>
+	                <th class="th">Details</th>
+	            </tr>
+	            <tr class='tr'>
+	                <td class="td">Guest House :</td>
+	                <td class="td">{{ reservation.guesthouse }}</td>
+	            </tr>
+	            <tr class='tr'>
+	                <td class="td">Room Type :</td>
+	                <td class="td">{{ reservation.room_type }}</td>
+	            </tr>
+	            <tr class='tr'>
+	                <td class="td">Check In :</td>
+	                <td class="td">{{ reservation.start_date }}</td>
+	            </tr>
+	            <tr class='tr'>
+	                <td class="td">Check Out :</td>
+	                <td class="td">{{ reservation.end_date }}</td>
+	            </tr>
+	            <tr class='tr'>
+	                <td class="td">Book Date :</td>
+	                <td class="td">{{ reservation.booktime }}</td>
+	            </tr>
+	        </table>
+
+	        <button class="btn btn--green" onclick="location.href='/my-bookings'">My Bookings </button>
+	    </div>
+    </div>
+
+{% endblock %}

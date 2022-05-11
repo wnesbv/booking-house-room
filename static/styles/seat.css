@@ -1,0 +1,123 @@
+
+
+.bottom{
+    padding: 1em;
+    background-color: #55b298;
+}
+.hall{
+    min-height: 66vh;
+    margin: 6vh 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: stretch;
+    align-items: center;
+}
+.seats{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.seats.book_to_table{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.book_table{
+    width: calc(33% - 2em);
+    min-width: 18em;
+    margin: .5em;
+    padding: .5em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center;
+    border: 1px solid;
+}
+.title_table{
+    width: 100%;
+}
+.seat{
+    width: 39.6px;
+    height: 44px;
+    margin: 5px;
+    position: relative;
+    display: flex;
+    border: 1px solid #000;
+    border-radius: 4px 4px 8px 8px;
+    background: linear-gradient(#78C2AD 0%, #78C2AD 70%, #000 70%, #78C2AD 77%);
+}
+.seat:after,
+.seat:before{
+    content: '';
+    width: 7.3333333333px;
+    height: 24.4444444444px;
+    bottom: 5.5px;
+    position: absolute;
+    display: block;
+    border: 1px solid #000;
+    border-radius: 4px;
+    background: #78C2AD;
+}
+.seat:before{
+    left: -4.4px;
+}
+.seat:after{
+    right: -4.4px;
+}
+.seat.notvacant{
+    background: #ccc;
+    background: linear-gradient(#ccc 0%, #ccc 70%, #000 70%, #ccc 77%);
+}
+.seat.notvacant:before,
+.seat.notvacant:after{
+    background: #ccc;
+}
+.space{
+    width: 25%;
+    display: inline-block;
+}
+
+input[type=checkbox]{
+    visibility: hidden;
+}
+
+.seat label{
+    width: 35px;
+    height: 35px;
+    top: 3px;
+    left: 2px;
+    position: absolute;
+    cursor: pointer;
+    border-radius: 0 0 3px 3px;
+    background: #f1f1f100;
+}
+.seat label:after{
+    content: '';
+    width: 30px;
+    height: 25px;
+    top: 0;
+    left: 2px;
+    position: absolute;
+    opacity: 0;
+    border-radius: 5px;
+    background: #ff9800;
+    filter: opacity(0)
+}
+
+.seat label:hover::after{
+    opacity: .3;
+    filter: opacity(30%)
+}
+
+.seat input[type=checkbox]:checked + label:after{
+    opacity: 1;
+    filter: opacity(100%)
+}

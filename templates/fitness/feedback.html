@@ -1,0 +1,20 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="ice">Feedback Form</h1>
+        <form class="m-4" name="form" method="post" action="">
+            {% csrf_token %}
+            <ul class="list-group">
+                {{ form.feed | as_crispy_field }}
+            </ul>
+            <button class="btn btn-outline-success my-5" type="submit">submit</button>
+        </form>
+    </div>
+
+{% endblock %}

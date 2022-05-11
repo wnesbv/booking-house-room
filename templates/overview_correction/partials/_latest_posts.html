@@ -1,0 +1,17 @@
+
+
+<!-- Categories Widget -->
+<div class="card my-4">
+    <h5 class="card-header">Latest Posts</h5>
+    <div class="card-body">
+        <ul class="list-group">
+            {% for post in latest_posts %}
+                <li class="list-group-item">
+                    <a class="page_link" href="{{ post.get_absolute_url }}">
+                        {{ post.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

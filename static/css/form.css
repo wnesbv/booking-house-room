@@ -1,0 +1,58 @@
+
+.form_event{
+    max-width: 30em;
+}
+.ctrl_holder ul li{
+    margin: .25em .5em;
+}
+.ctrl_holder ul{
+    list-style: none;
+}
+.ctrl_holder{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+.ctrl_holder input[type=checkbox]{
+    display: inline-block;
+    width: auto;
+}
+.ctrl_holder input[type=text],
+.ctrl_holder input[type=email],
+.ctrl_holder input[type=password]{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.ctrl_holder label{
+    padding-top: calc(.375rem + 1px);
+    padding-bottom: calc(.375rem + 1px);
+    margin-bottom: 0;
+    font-size: inherit;
+    line-height: 1.5;
+}
+
+
+.ctrl_holder ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: space-between;
+}

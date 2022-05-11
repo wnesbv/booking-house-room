@@ -1,0 +1,30 @@
+
+
+{% extends 'event.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container h-100 p-5 border rounded-3 my-5">
+    <div class="col-sm">
+        <div class="pagination thumbnail mt-2">
+            <div class="account_photo">
+                <img class="account_img" src="{{ user.profile.image.url }}" alt="" title="" />
+            </div>
+        </div>
+        <div class="media-body my-4">
+            <h1 class="my-5">{{ user.username }}</h1>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+    </div>
+    <form class="m-4 row" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="list-group">
+            <legend class="list-group-item">Profile Info</legend>
+            {{ u_form|crispy }}
+            {{ p_form|crispy }}
+        <fieldset>
+        <button class="m_btn m-4" type="submit">update</button>
+    </form>
+</div>
+{% endblock content %}
